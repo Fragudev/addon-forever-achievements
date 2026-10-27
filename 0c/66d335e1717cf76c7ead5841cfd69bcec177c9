@@ -1,0 +1,103 @@
+ForeverAchievements/Data/Achievements/Account.lua
+  s_e75a0367a2662c::t_91d040dc514781 1-208
+ForeverAchievements/Data/Achievements/DungeonsRaids.lua
+  s_e75a0367a2662c::t_0cc96c1125cc8b 1-1419
+ForeverAchievements/Data/Achievements/Exploration.lua
+  s_e75a0367a2662c::t_24ff48fd12761d 1-582
+ForeverAchievements/Data/Achievements/Feats.lua
+  s_e75a0367a2662c::t_2514ed6b54a672 1-197
+ForeverAchievements/Data/Achievements/General.lua
+  s_e75a0367a2662c::t_2392fe44e3761e 3-4,11,23,36,49,62,75,84-314,316-330,332-511,514
+ForeverAchievements/Data/Achievements/Professions.lua
+  s_e75a0367a2662c::t_8c07dd8c4dcf8e 1-669
+ForeverAchievements/Data/Achievements/PvP.lua
+  s_e75a0367a2662c::t_0922c399c42528 1-527
+ForeverAchievements/Data/Achievements/Quests.lua
+  s_e75a0367a2662c::t_2edc562972cc3c 1-246
+ForeverAchievements/Data/Achievements/Reputation.lua
+  s_e75a0367a2662c::t_6268be6c33bb64 1-1292
+ForeverAchievements/Data/Categories.lua
+  s_e75a0367a2662c::t_751b763c4a7266 12-13,63-65
+ForeverAchievements/Data/Reference/Battlegrounds.lua
+  s_e75a0367a2662c::t_8f2dad16ae6f24 1-11
+ForeverAchievements/Data/Reference/Critters.lua
+  s_e75a0367a2662c::t_b0ced0e088c67f 1-19
+ForeverAchievements/Data/Reference/Encounters.lua
+  s_e75a0367a2662c::t_85347ec2e871cb 1-207
+ForeverAchievements/Data/Reference/Factions.lua
+  s_e75a0367a2662c::t_0335fff602927e 1-39
+ForeverAchievements/Data/Reference/Items.lua
+  s_e75a0367a2662c::t_0db09a34b3aa7c 1-24
+ForeverAchievements/Data/Reference/Quests.lua
+  s_e75a0367a2662c::t_5e9561ad57b5fe 1-19
+ForeverAchievements/Data/Reference/SkillLines.lua
+  s_e75a0367a2662c::t_41a4e13a50c34d 1-20
+ForeverAchievements/Data/Reference/Zones.lua
+  s_e75a0367a2662c::t_9206d966d7dd45 1-55
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_8ee4d9007b5e7b 18-33,47-54,56-63
+ForeverAchievements/Locales/Achievements/Account_enUS.lua
+  s_e75a0367a2662c::t_6cb6648556edb4 1-37
+ForeverAchievements/Locales/Achievements/Account_esES.lua
+  s_e75a0367a2662c::t_7aa054561d345a 1-37
+ForeverAchievements/Locales/Achievements/DungeonsRaids_enUS.lua
+  s_e75a0367a2662c::t_6823425ad1030b 1-209
+ForeverAchievements/Locales/Achievements/DungeonsRaids_esES.lua
+  s_e75a0367a2662c::t_70423767ac0631 1-209
+ForeverAchievements/Locales/Achievements/Exploration_enUS.lua
+  s_e75a0367a2662c::t_8f41169b6b76a1 1-99
+ForeverAchievements/Locales/Achievements/Exploration_esES.lua
+  s_e75a0367a2662c::t_5aa827b883add9 1-122
+ForeverAchievements/Locales/Achievements/Feats_enUS.lua
+  s_e75a0367a2662c::t_78b801b2f9cdb1 1-37
+ForeverAchievements/Locales/Achievements/Feats_esES.lua
+  s_e75a0367a2662c::t_52e5d876a323da 1-40
+ForeverAchievements/Locales/Achievements/Professions_enUS.lua
+  s_e75a0367a2662c::t_b98c7580d5232d 1-109
+ForeverAchievements/Locales/Achievements/Professions_esES.lua
+  s_e75a0367a2662c::t_4fad38c2b50b4f 1-109
+ForeverAchievements/Locales/Achievements/PvP_enUS.lua
+  s_e75a0367a2662c::t_7f6de9d4e09ab7 1-89
+ForeverAchievements/Locales/Achievements/PvP_esES.lua
+  s_e75a0367a2662c::t_74384590843645 1-89
+ForeverAchievements/Locales/Achievements/Quests_enUS.lua
+  s_e75a0367a2662c::t_a6ba2f8ce28a8f 1-48
+ForeverAchievements/Locales/Achievements/Quests_esES.lua
+  s_e75a0367a2662c::t_d2846321c75f70 1-49
+ForeverAchievements/Locales/Achievements/Reputation_enUS.lua
+  s_e75a0367a2662c::t_954d32348fe32b 1-202
+ForeverAchievements/Locales/Achievements/Reputation_esES.lua
+  s_e75a0367a2662c::t_a5fcb80efe5209 1-217
+ForeverAchievements/Locales/Achievements_enUS.lua
+  s_e75a0367a2662c::t_f6a96ed611cee0 3,13-85
+ForeverAchievements/Locales/Achievements_esES.lua
+  s_e75a0367a2662c::t_cc4329e516ae0a 3,13-85
+ForeverAchievements/Locales/enUS.lua
+  s_e75a0367a2662c::t_a33ddb47de0bcd 11-12,31-33
+ForeverAchievements/Locales/esES.lua
+  s_e75a0367a2662c::t_79f069d193fa17 11-12,31-33
+tests/app_spec.lua
+  s_e75a0367a2662c::t_2e9f2d41ea7097 2,8
+tests/catalog_spec.lua
+  s_e75a0367a2662c::t_4d50bfdc9e379e 22-23,30-31,37-42,44,63,65,89-156
+tests/locale_parity_spec.lua
+  s_e75a0367a2662c::t_94ff1c762878f4 28-38
+tests/support/loader.lua
+  s_e75a0367a2662c::t_08421243d8cb30 33-48,51-58,60-106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "0c66d335e1717cf76c7ead5841cfd69bcec177c9",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
