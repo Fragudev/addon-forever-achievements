@@ -15,6 +15,8 @@ Locales\enUS.lua
 Locales\esES.lua
 Locales\Achievements_enUS.lua
 Locales\Achievements_esES.lua
+Locales\Achievements\Account_enUS.lua
+Locales\Achievements\Account_esES.lua
 Core\EventBus.lua
 Core\Store.lua
 Domain\Catalog.lua
@@ -27,7 +29,15 @@ Domain\Settings.lua
 Domain\TrackerService.lua
 Data\Categories.lua
 Data\Statistics.lua
+Data\Reference\Encounters.lua
+Data\Reference\Zones.lua
+Data\Reference\Factions.lua
+Data\Reference\SkillLines.lua
+Data\Reference\Quests.lua
+Data\Reference\Items.lua
+Data\Reference\Critters.lua
 Data\Achievements\General.lua
+Data\Achievements\Account.lua
 Locales\Detectors_enUS.lua
 Locales\Detectors_esES.lua
 Detectors\Detector.lua

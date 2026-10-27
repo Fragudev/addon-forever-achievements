@@ -19,25 +19,29 @@ describe("Catalog", function()
     end)
 
     it("registers the real data", function()
-      assert.are.equal(7, Catalog.Count())
-      assert.are.equal(7, #Catalog.All())
+      assert.is_true(Catalog.Count() >= 50)
+      assert.are.equal(Catalog.Count(), #Catalog.All())
       assert.are.equal("level_10", Catalog.Get("level_10").id)
       assert.is_nil(Catalog.Get("nope"))
     end)
 
     it("indexes by criterion type", function()
       assert.are.equal(6, #Catalog.ByType("level"))
-      assert.are.equal(1, #Catalog.ByType("account_level_count"))
-      assert.are.equal(0, #Catalog.ByType("death"))
+      assert.are.equal(4, #Catalog.ByType("account_level_count"))
+      assert.is_true(#Catalog.ByType("death") > 0)
     end)
 
     it("indexes by category, exact and deep", function()
       assert.are.equal(6, #Catalog.ByCategory("general.level"))
       assert.are.equal(0, #Catalog.ByCategory("general"))
-      assert.are.equal(6, #Catalog.ByCategory("general", true))
-      assert.are.equal(1, #Catalog.ByCategory("account", true))
+      local deep = 0
+      for _, child in ipairs(Catalog.GetCategory("general").children) do
+        deep = deep + #Catalog.ByCategory(child.id)
+      end
+      assert.are.equal(deep, #Catalog.ByCategory("general", true))
+      assert.is_true(#Catalog.ByCategory("account", true) > 1)
       assert.are.equal(0, #Catalog.ByCategory("missing", true))
-      assert.are.equal(0, #Catalog.ByCategory("general.misc", true))
+      assert.are.equal(#Catalog.ByCategory("general.misc"), #Catalog.ByCategory("general.misc", true))
     end)
 
     it("knows the dependents of an achievement", function()
@@ -56,9 +60,9 @@ describe("Catalog", function()
     end)
 
     it("rebuilds the indexes after a new registration", function()
-      assert.are.equal(0, #Catalog.ByType("death"))
+      local before = #Catalog.ByType("death")
       fixture.Install(ns)
-      assert.are.equal(2, #Catalog.ByType("death"))
+      assert.are.equal(before + 2, #Catalog.ByType("death"))
     end)
 
     it("resets", function()
@@ -78,6 +82,61 @@ describe("Catalog", function()
           def.mode == "max" or def.mode == "add" or def.derived == "meta" or def.derived == "account",
           name
         )
+      end
+    end)
+  end)
+
+  describe("real data", function()
+    local ns, Catalog
+
+    before_each(function()
+      ns = Loader.Full()
+      Catalog = ns.Catalog
+    end)
+
+    local function values(source, field)
+      local set = {}
+      for _, value in pairs(source) do
+        set[field and value[field] or value] = true
+      end
+      return set
+    end
+
+    it("keeps every reference key inside the Data/Reference tables", function()
+      local Ref = ns.Ref
+      local known = {
+        encounter = values(Ref.Encounters),
+        explore_zone = values(Ref.Zones, "map"),
+        skill = values(Ref.SkillLines),
+        reputation = values(Ref.Factions),
+        quest_id = values(Ref.Quests),
+        item_obtained = values(Ref.Items),
+      }
+      local totals = {}
+      for _, zone in pairs(Ref.Zones) do
+        totals[zone.map] = zone.total
+      end
+      local critters = values(Ref.Critters)
+      for _, ach in ipairs(Catalog.All()) do
+        for _, criterion in ipairs(ach.criteria) do
+          local set = known[criterion.type]
+          if set then
+            assert.is_true(set[criterion.key] == true, ach.id .. " uses an unknown " .. criterion.type .. " key")
+          end
+          if criterion.type == "explore_zone" then
+            assert.are.equal(totals[criterion.key], criterion.total, ach.id .. " zone total")
+            assert.are.equal(100, criterion.value, ach.id)
+          elseif criterion.type == "emote_target" then
+            local npc = tonumber(tostring(criterion.key):match(":(%d+)$"))
+            assert.is_true(critters[npc] == true, ach.id .. " uses an unknown critter")
+          end
+        end
+      end
+    end)
+
+    it("does not use criterion types without a reliable source", function()
+      for _, banned in ipairs({ "zone_quests", "explore_area", "pvp_rank" }) do
+        assert.are.equal(0, #Catalog.ByType(banned), banned)
       end
     end)
   end)

@@ -27,9 +27,36 @@ Loader.DOMAIN = {
 Loader.DATA = {
   "Locales/Achievements_enUS.lua",
   "Locales/Achievements_esES.lua",
+  "Locales/Achievements/Account_enUS.lua",
+  "Locales/Achievements/Account_esES.lua",
   "Data/Categories.lua",
   "Data/Statistics.lua",
+  "Data/Reference/Encounters.lua",
+  "Data/Reference/Zones.lua",
+  "Data/Reference/Factions.lua",
+  "Data/Reference/SkillLines.lua",
+  "Data/Reference/Quests.lua",
+  "Data/Reference/Items.lua",
+  "Data/Reference/Critters.lua",
   "Data/Achievements/General.lua",
+  "Data/Achievements/Account.lua",
+}
+
+-- Achievement locales, reference tables and data, in load order (no categories or statistics).
+Loader.CATALOG_FILES = {
+  "Locales/Achievements_enUS.lua",
+  "Locales/Achievements_esES.lua",
+  "Locales/Achievements/Account_enUS.lua",
+  "Locales/Achievements/Account_esES.lua",
+  "Data/Reference/Encounters.lua",
+  "Data/Reference/Zones.lua",
+  "Data/Reference/Factions.lua",
+  "Data/Reference/SkillLines.lua",
+  "Data/Reference/Quests.lua",
+  "Data/Reference/Items.lua",
+  "Data/Reference/Critters.lua",
+  "Data/Achievements/General.lua",
+  "Data/Achievements/Account.lua",
 }
 
 -- The UI block of the TOC, in load order (kit first, then view models).

@@ -9,6 +9,8 @@ ns.Catalog.RegisterCategories({
       { id = "general.level", name = "cat.general.level" },
       { id = "general.wealth", name = "cat.general.wealth" },
       { id = "general.time", name = "cat.general.time" },
+      { id = "general.collections", name = "cat.general.collections" },
+      { id = "general.emotes", name = "cat.general.emotes" },
       { id = "general.misc", name = "cat.general.misc" },
     },
   },
@@ -58,6 +60,9 @@ ns.Catalog.RegisterCategories({
     name = "cat.reputation",
     children = {
       { id = "reputation.factions", name = "cat.reputation.factions" },
+      { id = "reputation.capitals", name = "cat.reputation.capitals" },
+      { id = "reputation.world", name = "cat.reputation.world" },
+      { id = "reputation.pvp", name = "cat.reputation.pvp" },
     },
   },
   {
