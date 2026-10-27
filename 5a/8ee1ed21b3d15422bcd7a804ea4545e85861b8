@@ -1,0 +1,73 @@
+ForeverAchievements/Core/App.lua
+  s_e75a0367a2662c::t_b4e39d2859c0e9 1-234
+ForeverAchievements/Detectors/Collections.lua
+  s_e75a0367a2662c::t_4797b995bddc0d 1-51
+ForeverAchievements/Detectors/Detector.lua
+  s_e75a0367a2662c::t_f1d458fba317ff 1-173
+ForeverAchievements/Detectors/Exploration.lua
+  s_e75a0367a2662c::t_991e4c173a4a5a 1-83
+ForeverAchievements/Detectors/Level.lua
+  s_e75a0367a2662c::t_2bcd4c1bb5c88f 1-26
+ForeverAchievements/Detectors/Money.lua
+  s_e75a0367a2662c::t_0a5a01bbb24a46 1-31
+ForeverAchievements/Detectors/Played.lua
+  s_e75a0367a2662c::t_9f59115731e84e 1-50
+ForeverAchievements/Detectors/PvP.lua
+  s_e75a0367a2662c::t_0a572b519ddc3a 1-19
+ForeverAchievements/Detectors/Quests.lua
+  s_e75a0367a2662c::t_d27ee039c07968 1-69
+ForeverAchievements/Detectors/Reputation.lua
+  s_e75a0367a2662c::t_be4b80ac5df50f 1-68
+ForeverAchievements/Detectors/Skills.lua
+  s_e75a0367a2662c::t_57b506cb93357a 1-57
+ForeverAchievements/Detectors/Snapshot.lua
+  s_e75a0367a2662c::t_c5f7cb6110311d 1-96
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_0e75141c1a7568 31-44
+ForeverAchievements/Locales/Detectors_enUS.lua
+  s_e75a0367a2662c::t_94ab8188c52620 1-13
+ForeverAchievements/Locales/Detectors_esES.lua
+  s_e75a0367a2662c::t_27046dbe03506f 1-14
+tests/app_spec.lua
+  s_e75a0367a2662c::t_0288c21a641ae1 1-391
+tests/detector_base_spec.lua
+  s_e75a0367a2662c::t_3c28aac5310e45 1-179
+tests/detector_collections_spec.lua
+  s_e75a0367a2662c::t_2d1fb3a88820ef 1-91
+tests/detector_exploration_spec.lua
+  s_e75a0367a2662c::t_b46108eb62b7fc 1-140
+tests/detector_level_spec.lua
+  s_e75a0367a2662c::t_544c08c31dd2d3 1-82
+tests/detector_money_spec.lua
+  s_e75a0367a2662c::t_fda194f6bb7dc2 1-61
+tests/detector_played_spec.lua
+  s_e75a0367a2662c::t_2d3b98f6f39f14 1-74
+tests/detector_pvp_spec.lua
+  s_e75a0367a2662c::t_b868040756581d 1-51
+tests/detector_quests_spec.lua
+  s_e75a0367a2662c::t_5deb9b7aec4902 1-112
+tests/detector_reputation_spec.lua
+  s_e75a0367a2662c::t_6c2f1109d4bd12 1-118
+tests/detector_skills_spec.lua
+  s_e75a0367a2662c::t_cf84bc86c5d759 1-102
+tests/detector_snapshot_spec.lua
+  s_e75a0367a2662c::t_03753b9d82a8e6 1-134
+tests/support/detector_env.lua
+  s_e75a0367a2662c::t_936733ff550493 1-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "5a8ee1ed21b3d15422bcd7a804ea4545e85861b8",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
