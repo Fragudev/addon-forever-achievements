@@ -1,0 +1,57 @@
+ForeverAchievements/Data/Achievements/Account.lua
+  s_e75a0367a2662c::t_1a0abd88118b62 1-208
+ForeverAchievements/Data/Achievements/General.lua
+  s_e75a0367a2662c::t_c6034f603bea2c 3-4,11,23,36,49,62,75,84-314,316-330,332-511,514
+ForeverAchievements/Data/Categories.lua
+  s_e75a0367a2662c::t_78d597912efc31 12-13,63-65
+ForeverAchievements/Data/Reference/Critters.lua
+  s_e75a0367a2662c::t_d2a034f098be9b 1-19
+ForeverAchievements/Data/Reference/Encounters.lua
+  s_e75a0367a2662c::t_9e6b1a4e1c2b53 1-101
+ForeverAchievements/Data/Reference/Factions.lua
+  s_e75a0367a2662c::t_ac42faba2367b0 1-39
+ForeverAchievements/Data/Reference/Items.lua
+  s_e75a0367a2662c::t_9187f2f558bdaa 1-24
+ForeverAchievements/Data/Reference/Quests.lua
+  s_e75a0367a2662c::t_f439ef6d327771 1-18
+ForeverAchievements/Data/Reference/SkillLines.lua
+  s_e75a0367a2662c::t_b3d464dc997558 1-20
+ForeverAchievements/Data/Reference/Zones.lua
+  s_e75a0367a2662c::t_2ca47404288061 1-55
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_02662874513e55 18-19,32-38,40
+ForeverAchievements/Locales/Achievements/Account_enUS.lua
+  s_e75a0367a2662c::t_333c96bd9c0bc1 1-37
+ForeverAchievements/Locales/Achievements/Account_esES.lua
+  s_e75a0367a2662c::t_5f6ecbf861f12c 1-37
+ForeverAchievements/Locales/Achievements_enUS.lua
+  s_e75a0367a2662c::t_4826d991706175 3,13-85
+ForeverAchievements/Locales/Achievements_esES.lua
+  s_e75a0367a2662c::t_14763c8c3fa0e2 3,13-86
+ForeverAchievements/Locales/enUS.lua
+  s_e75a0367a2662c::t_db2a8b170eedd9 11-12,31-33
+ForeverAchievements/Locales/esES.lua
+  s_e75a0367a2662c::t_3fbf6ca8c42dd2 11-12,31-33
+tests/app_spec.lua
+  s_e75a0367a2662c::t_11aded69184990 2,8
+tests/catalog_spec.lua
+  s_e75a0367a2662c::t_9042db9ce1ed7f 22-23,30-31,37-42,44,63,65,89-143
+tests/support/loader.lua
+  s_e75a0367a2662c::t_489bd7cf8a0c17 30-31,34-40,42-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "3526d4f00e6d73925ddf98336d51b28aa925457a",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
