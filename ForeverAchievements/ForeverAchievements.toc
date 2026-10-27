@@ -27,6 +27,8 @@ Locales\Achievements\DungeonsRaids_enUS.lua
 Locales\Achievements\DungeonsRaids_esES.lua
 Locales\Achievements\PvP_enUS.lua
 Locales\Achievements\PvP_esES.lua
+Locales\Achievements\Feats_enUS.lua
+Locales\Achievements\Feats_esES.lua
 Locales\Achievements\Account_enUS.lua
 Locales\Achievements\Account_esES.lua
 Core\EventBus.lua
@@ -56,6 +58,7 @@ Data\Achievements\Reputation.lua
 Data\Achievements\Professions.lua
 Data\Achievements\DungeonsRaids.lua
 Data\Achievements\PvP.lua
+Data\Achievements\Feats.lua
 Data\Achievements\Account.lua
 Locales\Detectors_enUS.lua
 Locales\Detectors_esES.lua
