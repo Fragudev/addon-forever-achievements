@@ -188,6 +188,10 @@ describe("End to end", function()
       for _ in pairs(ns.store:Earned(character.guid)) do
         count = count + 1
       end
+      -- The full catalog also has account achievements that a single level 60 character already meets.
+      for _ in pairs(ns.store:AccountEarned()) do
+        count = count + 1
+      end
       local text = summary[1]:gsub("^|c%x%x%x%x%x%x%x%x.-|r ", "")
       assert.are.equal(string.format(ns.L["retro.summary"], count), text)
       assert.is_nil(_G.ForeverAchievementsToast)

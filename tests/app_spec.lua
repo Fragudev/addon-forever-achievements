@@ -1,11 +1,11 @@
 local Env = dofile("tests/support/detector_env.lua")
+local Loader = dofile("tests/support/loader.lua")
 
 describe("App", function()
   local env, ns, fakeSlash, commands, printed, realPrint
 
   before_each(function()
-    env =
-      Env.Build({ "Locales/Achievements_enUS.lua", "Locales/Achievements_esES.lua", "Data/Achievements/General.lua" })
+    env = Env.Build(Loader.CATALOG_FILES)
     ns = env.ns
     commands = {}
     fakeSlash = {
