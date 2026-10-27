@@ -29,6 +29,8 @@ Loader.DATA = {
   "Locales/Achievements_esES.lua",
   "Locales/Achievements/Quests_enUS.lua",
   "Locales/Achievements/Quests_esES.lua",
+  "Locales/Achievements/Exploration_enUS.lua",
+  "Locales/Achievements/Exploration_esES.lua",
   "Locales/Achievements/Account_enUS.lua",
   "Locales/Achievements/Account_esES.lua",
   "Data/Categories.lua",
@@ -42,6 +44,7 @@ Loader.DATA = {
   "Data/Reference/Critters.lua",
   "Data/Achievements/General.lua",
   "Data/Achievements/Quests.lua",
+  "Data/Achievements/Exploration.lua",
   "Data/Achievements/Account.lua",
 }
 
@@ -51,6 +54,8 @@ Loader.CATALOG_FILES = {
   "Locales/Achievements_esES.lua",
   "Locales/Achievements/Quests_enUS.lua",
   "Locales/Achievements/Quests_esES.lua",
+  "Locales/Achievements/Exploration_enUS.lua",
+  "Locales/Achievements/Exploration_esES.lua",
   "Locales/Achievements/Account_enUS.lua",
   "Locales/Achievements/Account_esES.lua",
   "Data/Reference/Encounters.lua",
@@ -62,6 +67,7 @@ Loader.CATALOG_FILES = {
   "Data/Reference/Critters.lua",
   "Data/Achievements/General.lua",
   "Data/Achievements/Quests.lua",
+  "Data/Achievements/Exploration.lua",
   "Data/Achievements/Account.lua",
 }
 

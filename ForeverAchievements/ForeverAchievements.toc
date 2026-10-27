@@ -17,6 +17,8 @@ Locales\Achievements_enUS.lua
 Locales\Achievements_esES.lua
 Locales\Achievements\Quests_enUS.lua
 Locales\Achievements\Quests_esES.lua
+Locales\Achievements\Exploration_enUS.lua
+Locales\Achievements\Exploration_esES.lua
 Locales\Achievements\Account_enUS.lua
 Locales\Achievements\Account_esES.lua
 Core\EventBus.lua
@@ -40,6 +42,7 @@ Data\Reference\Items.lua
 Data\Reference\Critters.lua
 Data\Achievements\General.lua
 Data\Achievements\Quests.lua
+Data\Achievements\Exploration.lua
 Data\Achievements\Account.lua
 Locales\Detectors_enUS.lua
 Locales\Detectors_esES.lua
