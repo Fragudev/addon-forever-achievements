@@ -1,0 +1,39 @@
+.luacheckrc
+  s_e75a0367a2662c::t_ac7687886c588e 14
+ForeverAchievements/Core/EventBus.lua
+  s_e75a0367a2662c::t_4515ec72d851aa 1-79
+ForeverAchievements/Core/Locale.lua
+  s_e75a0367a2662c::t_65a8b5bf8d156a 1-91
+ForeverAchievements/Core/Store.lua
+  s_e75a0367a2662c::t_10916293066a84 1-186
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_46132cca815b89 12-16
+ForeverAchievements/Locales/enUS.lua
+  s_e75a0367a2662c::t_7aaf6cbf2d9dd7 1-44
+ForeverAchievements/Locales/esES.lua
+  s_e75a0367a2662c::t_50837ca25f2c30 1-44
+tests/event_bus_spec.lua
+  s_e75a0367a2662c::t_b31c3fb63eca23 1-87
+tests/locale_spec.lua
+  s_e75a0367a2662c::t_b6c6e633922ad6 1-75
+tests/store_spec.lua
+  s_e75a0367a2662c::t_88bcce6884d707 1-170
+tests/support/loader.lua
+  s_e75a0367a2662c::t_b29bee3b3810ca 1-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "f4639d871636eeaa4edc53ab78f0a2875ac83ab3",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
