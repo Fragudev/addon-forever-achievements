@@ -18,12 +18,17 @@ Loader.DOMAIN = {
   "Domain/CriteriaEngine.lua",
   "Domain/AwardService.lua",
   "Domain/AccountService.lua",
+  "Domain/RetroScan.lua",
+  "Domain/StatisticsService.lua",
+  "Domain/Settings.lua",
+  "Domain/TrackerService.lua",
 }
 
 Loader.DATA = {
   "Locales/Achievements_enUS.lua",
   "Locales/Achievements_esES.lua",
   "Data/Categories.lua",
+  "Data/Statistics.lua",
   "Data/Achievements/General.lua",
 }
 

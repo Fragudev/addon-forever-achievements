@@ -20,6 +20,11 @@ Domain\Catalog.lua
 Domain\CriteriaEngine.lua
 Domain\AwardService.lua
 Domain\AccountService.lua
+Domain\RetroScan.lua
+Domain\StatisticsService.lua
+Domain\Settings.lua
+Domain\TrackerService.lua
 Data\Categories.lua
+Data\Statistics.lua
 Data\Achievements\General.lua
 Core\Init.lua
