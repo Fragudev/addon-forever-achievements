@@ -110,6 +110,8 @@ describe("Catalog", function()
         skill = values(Ref.SkillLines),
         reputation = values(Ref.Factions),
         quest_id = values(Ref.Quests),
+        bg_win = values(Ref.Battlegrounds),
+        bg_played = values(Ref.Battlegrounds),
         item_obtained = values(Ref.Items),
       }
       local totals = {}

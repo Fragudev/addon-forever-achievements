@@ -37,6 +37,8 @@ Loader.DATA = {
   "Locales/Achievements/Professions_esES.lua",
   "Locales/Achievements/DungeonsRaids_enUS.lua",
   "Locales/Achievements/DungeonsRaids_esES.lua",
+  "Locales/Achievements/PvP_enUS.lua",
+  "Locales/Achievements/PvP_esES.lua",
   "Locales/Achievements/Account_enUS.lua",
   "Locales/Achievements/Account_esES.lua",
   "Data/Categories.lua",
@@ -45,6 +47,7 @@ Loader.DATA = {
   "Data/Reference/Zones.lua",
   "Data/Reference/Factions.lua",
   "Data/Reference/SkillLines.lua",
+  "Data/Reference/Battlegrounds.lua",
   "Data/Reference/Quests.lua",
   "Data/Reference/Items.lua",
   "Data/Reference/Critters.lua",
@@ -54,6 +57,7 @@ Loader.DATA = {
   "Data/Achievements/Reputation.lua",
   "Data/Achievements/Professions.lua",
   "Data/Achievements/DungeonsRaids.lua",
+  "Data/Achievements/PvP.lua",
   "Data/Achievements/Account.lua",
 }
 
@@ -71,12 +75,15 @@ Loader.CATALOG_FILES = {
   "Locales/Achievements/Professions_esES.lua",
   "Locales/Achievements/DungeonsRaids_enUS.lua",
   "Locales/Achievements/DungeonsRaids_esES.lua",
+  "Locales/Achievements/PvP_enUS.lua",
+  "Locales/Achievements/PvP_esES.lua",
   "Locales/Achievements/Account_enUS.lua",
   "Locales/Achievements/Account_esES.lua",
   "Data/Reference/Encounters.lua",
   "Data/Reference/Zones.lua",
   "Data/Reference/Factions.lua",
   "Data/Reference/SkillLines.lua",
+  "Data/Reference/Battlegrounds.lua",
   "Data/Reference/Quests.lua",
   "Data/Reference/Items.lua",
   "Data/Reference/Critters.lua",
@@ -86,6 +93,7 @@ Loader.CATALOG_FILES = {
   "Data/Achievements/Reputation.lua",
   "Data/Achievements/Professions.lua",
   "Data/Achievements/DungeonsRaids.lua",
+  "Data/Achievements/PvP.lua",
   "Data/Achievements/Account.lua",
 }
 
