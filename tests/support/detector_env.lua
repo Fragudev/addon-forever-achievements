@@ -18,6 +18,9 @@ local DETECTOR_FILES = {
   Encounters = "Detectors/Encounters.lua",
   Battlegrounds = "Detectors/Battlegrounds.lua",
   Deaths = "Detectors/Deaths.lua",
+  Emotes = "Detectors/Emotes.lua",
+  Items = "Detectors/Items.lua",
+  LootedMoney = "Detectors/LootedMoney.lua",
   Snapshot = "Detectors/Snapshot.lua",
 }
 

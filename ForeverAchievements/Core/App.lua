@@ -41,6 +41,9 @@ App.DETECTORS = {
   "Encounters",
   "Battlegrounds",
   "Deaths",
+  "Emotes",
+  "Items",
+  "LootedMoney",
   "Snapshot",
 }
 

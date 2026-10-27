@@ -47,6 +47,9 @@ Detectors\Snapshot.lua
 Detectors\Encounters.lua
 Detectors\Battlegrounds.lua
 Detectors\Deaths.lua
+Detectors\Emotes.lua
+Detectors\Items.lua
+Detectors\LootedMoney.lua
 Core\App.lua
 Core\Probe.lua
 Commands\Slash.lua
