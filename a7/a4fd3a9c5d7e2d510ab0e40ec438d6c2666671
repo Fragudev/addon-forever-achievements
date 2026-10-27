@@ -1,0 +1,29 @@
+ForeverAchievements/Data/Achievements/DungeonsRaids.lua
+  s_e75a0367a2662c::t_d706f99e030031 1-1419
+ForeverAchievements/Data/Reference/Encounters.lua
+  s_e75a0367a2662c::t_10d14cf41089e5 72-192,198-203
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_4a58b7ab22d8b9 26-27,54
+ForeverAchievements/Locales/Achievements/DungeonsRaids_enUS.lua
+  s_e75a0367a2662c::t_a9f496fb8b0308 1-209
+ForeverAchievements/Locales/Achievements/DungeonsRaids_esES.lua
+  s_e75a0367a2662c::t_59fb91e41666a3 1-209
+tests/support/loader.lua
+  s_e75a0367a2662c::t_a3dc6ce99c15d0 38-39,56,72-73,88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "a7a4fd3a9c5d7e2d510ab0e40ec438d6c2666671",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
