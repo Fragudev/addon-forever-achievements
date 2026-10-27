@@ -63,7 +63,7 @@ ns.Locale.Register("enUS", {
   ["ach.gear_epic.name"] = "Epic",
   ["ach.gear_epic.desc"] = "Equip an epic (purple) or better item in every equipment slot.",
   ["ach.emote_love_critters.name"] = "To All The Squirrels I've Loved Before",
-  ["ach.emote_love_critters.desc"] = "Show the critters of Azeroth how much you /love them: squirrel,  "
+  ["ach.emote_love_critters.desc"] = "Show the critters of Azeroth how much you /love them: squirrel, "
     .. "rabbit, chicken, prairie dog, cat, sheep, cow, toad and fawn.",
   ["ach.emote_love_squirrel.name"] = "A Kind Word for the Squirrel",
   ["ach.emote_love_squirrel.desc"] = "Use /love on a squirrel.",

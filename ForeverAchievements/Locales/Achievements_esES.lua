@@ -63,9 +63,8 @@ ns.Locale.Register("esES", {
   ["ach.gear_epic.name"] = "Épico",
   ["ach.gear_epic.desc"] = "Equipar un objeto épico (morado) o mejor en todas las ranuras de equipo.",
   ["ach.emote_love_critters.name"] = "A todas las ardillas que he amado",
-  ["ach.emote_love_critters.desc"] = "Demuestra a las alimañas de Azeroth cuánto las quieres con /amor:  "
-    .. "ardilla, conejo, pollo, perrito de las praderas, gato, oveja, vaca,  "
-    .. "sapo y cervatillo.",
+  ["ach.emote_love_critters.desc"] = "Demuestra a las alimañas de Azeroth cuánto las quieres con /amor: "
+    .. "ardilla, conejo, pollo, perrito de las praderas, gato, oveja, vaca, sapo y cervatillo.",
   ["ach.emote_love_squirrel.name"] = "Cariño para la ardilla",
   ["ach.emote_love_squirrel.desc"] = "Usar /amor con la ardilla.",
   ["ach.emote_love_rabbit.name"] = "Cariño para el conejo",

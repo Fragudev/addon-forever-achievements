@@ -14,5 +14,6 @@ ns.Ref.Quests = {
   scepter_anachronos = 8303,
   scepter_might_of_kalimdor = 8742,
   dreadsteed = 7631,
+  seal_of_ascension = 4742,
   the_god_hakkar = 3528,
 }
