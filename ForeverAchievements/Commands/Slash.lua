@@ -50,9 +50,20 @@ local function splitFirst(text)
   return word:lower(), rest
 end
 
+-- A function that handles a bare /fach (the UI toggles its window); it returns true when it did. Without one, a bare
+-- /fach prints the version and the help.
+function Slash.SetDefault(handler)
+  Slash.default = handler
+end
+
 local function printHelp()
   say("commands:")
-  print("  /fach                  version and this help")
+  if Slash.default then
+    print("  /fach                  " .. (ns.L and ns.L["ui.cmd.toggle"] or "open or close the window"))
+    print("  /fach help             version and this help")
+  else
+    print("  /fach                  version and this help")
+  end
   for _, entry in ipairs(Slash.commands) do
     print("  /fach " .. entry.help)
   end
@@ -75,7 +86,13 @@ end
 -- Handles one line typed after /fach.
 function Slash.Dispatch(message)
   local name, rest = splitFirst(message)
-  if name == "" then
+  if name == "" and Slash.default then
+    local ok, handled = pcall(Slash.default)
+    if ok and handled then
+      return
+    end
+  end
+  if name == "" or name == "help" then
     say(ns.GetVersion())
     printHelp()
     return

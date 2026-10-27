@@ -104,4 +104,20 @@ describe("Slash", function()
     end)
     assert.is_truthy(output():find("error in /fach bad", 1, true))
   end)
+
+  it("prints the help for /fach help and runs a default handler for a bare /fach", function()
+    SlashCmdList["FACH"]("help")
+    assert.is_truthy(output():find("commands:", 1, true))
+    local toggled = 0
+    ns.Slash.SetDefault(function()
+      toggled = toggled + 1
+      return true
+    end)
+    printed = {}
+    SlashCmdList["FACH"]("")
+    assert.are.equal(1, toggled)
+    assert.are.same({}, printed)
+    SlashCmdList["FACH"]("help")
+    assert.is_truthy(output():find("open or close the window", 1, true))
+  end)
 end)

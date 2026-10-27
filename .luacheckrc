@@ -18,6 +18,17 @@ read_globals = {
   "issecretvalue",
   -- Native achievement namespace, read by the probe.
   "C_AchievementInfo",
+  -- UI kit.
+  "UIParent",
+  "UISpecialFrames",
+  "CreateFont",
+  "STANDARD_TEXT_FONT",
+  "GameTooltip",
+  "GetPhysicalScreenSize",
+  "date",
+  "Minimap",
+  "GetCursorPosition",
+  "IsShiftKeyDown",
 }
 
 files["tests/"] = {

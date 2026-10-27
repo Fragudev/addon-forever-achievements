@@ -32,6 +32,9 @@ Loader.DATA = {
   "Data/Achievements/General.lua",
 }
 
+-- The UI block of the TOC, in load order (kit first, then view models).
+Loader.UI_LOCALES = { "Locales/UI_enUS.lua", "Locales/UI_esES.lua" }
+
 function Loader.Load(...)
   local ns = {}
   for _, files in ipairs({ ... }) do
@@ -43,7 +46,7 @@ function Loader.Load(...)
 end
 
 function Loader.Full()
-  return Loader.Load(Loader.CORE, Loader.DOMAIN, Loader.DATA)
+  return Loader.Load(Loader.CORE, Loader.DOMAIN, Loader.DATA, Loader.UI_LOCALES)
 end
 
 return Loader
