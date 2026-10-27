@@ -1,0 +1,21 @@
+ForeverAchievements/UI/ViewModelAchievements.lua
+  s_e75a0367a2662c::t_2ce6f7000ade44 167-172
+tests/view_model_achievements_spec.lua
+  s_e75a0367a2662c::t_da5e11faafeeaf 214-215,218
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "9d5a59b6b2f0948d2f67b523f34d0dd4a3eee330",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
