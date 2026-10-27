@@ -156,6 +156,12 @@ function Platform.GetPlayerFullName()
   return first("string", "GetUnitName", "player", true)
 end
 
+-- The name to show for the player. GetUnitName without the realm is preferred because UnitName gives only the first
+-- word of a multi-word name on Forever (measured in nrage); UnitName is the fallback. Display use only.
+function Platform.GetPlayerDisplayName()
+  return first("string", "GetUnitName", "player", false) or first("string", "UnitName", "player")
+end
+
 -- Localized class name, class token ("WARRIOR"), class id.
 function Platform.GetPlayerClass()
   return several({ "string", "string", "number" }, "UnitClass", "player")
@@ -195,6 +201,12 @@ end
 -- "unavailable" here; use Platform.Has when that matters).
 function Platform.GetCompletedQuestIDs()
   return first("table", "C_QuestLog.GetAllCompletedQuestIDs") or {}
+end
+
+-- Same list, but nil (not an empty table) when the API is missing, fails or gives a secret: lets a caller tell "no
+-- quest completed" from "cannot read".
+function Platform.ReadCompletedQuestIDs()
+  return first("table", "C_QuestLog.GetAllCompletedQuestIDs")
 end
 
 -- true or false, nil when the client cannot say.
@@ -292,6 +304,37 @@ function Platform.GetNumFactions()
   return first("number", "C_Reputation.GetNumFactions") or first("number", "GetNumFactions")
 end
 
+-- { name, factionID, standingID, barMin, barMax, barValue, source } of the faction at a position of the faction list,
+-- or nil. The list only has the rows that are visible (collapsed headers hide their factions); the addon never
+-- expands them. Prefers C_Reputation.GetFactionDataByIndex and falls back to GetFactionInfo.
+function Platform.GetFactionByIndex(index)
+  local data = first("table", "C_Reputation.GetFactionDataByIndex", index)
+  if data and typedValue(data.name, "string") then
+    return {
+      name = data.name,
+      factionID = typedValue(data.factionID, "number"),
+      standingID = typedValue(data.reaction, "number"),
+      barMin = typedValue(data.currentReactionThreshold, "number"),
+      barMax = typedValue(data.nextReactionThreshold, "number"),
+      barValue = typedValue(data.currentStanding, "number"),
+      source = "C_Reputation.GetFactionDataByIndex",
+    }
+  end
+  local packed = results("GetFactionInfo", index)
+  if packed and typedValue(packed[1], "string") then
+    return {
+      name = packed[1],
+      factionID = typedValue(packed[14], "number"),
+      standingID = typedValue(packed[3], "number"),
+      barMin = typedValue(packed[4], "number"),
+      barMax = typedValue(packed[5], "number"),
+      barValue = typedValue(packed[6], "number"),
+      source = "GetFactionInfo",
+    }
+  end
+  return nil
+end
+
 -- Professions ---------------------------------------------------------------------------------------------------
 
 -- Array of profession indexes (primary 1, primary 2, archaeology, fishing, cooking), without the empty slots.
@@ -327,6 +370,33 @@ end
 -- Array of mount ids, or nil.
 function Platform.GetMountIDs()
   return first("table", "C_MountJournal.GetMountIDs")
+end
+
+-- How many mounts the player has collected: walks the journal ids and reads the "is collected" flag (11th result of
+-- C_MountJournal.GetMountInfoByID). nil when the journal is missing or no mount could be read.
+function Platform.GetCollectedMountCount()
+  local ids = Platform.GetMountIDs()
+  if not ids then
+    return nil
+  end
+  if #ids == 0 then
+    return 0
+  end
+  local readable, collected = 0, 0
+  for _, id in ipairs(ids) do
+    local packed = results("C_MountJournal.GetMountInfoByID", id)
+    local flag = packed and typedValue(packed[11], "boolean")
+    if flag ~= nil then
+      readable = readable + 1
+      if flag then
+        collected = collected + 1
+      end
+    end
+  end
+  if readable == 0 then
+    return nil
+  end
+  return collected
 end
 
 -- Total pets, owned pets.
@@ -400,6 +470,23 @@ end
 function Platform.GetNumCompletedAchievements()
   local completed, total = several({ "number", "number" }, "GetNumCompletedAchievements")
   return completed, total
+end
+
+-- A new frame for the events of one detector, or nil when the client cannot make it.
+function Platform.NewFrame()
+  if type(CreateFrame) ~= "function" then
+    return nil
+  end
+  local ok, frame = pcall(CreateFrame, "Frame")
+  if ok and type(frame) == "table" then
+    return frame
+  end
+  return nil
+end
+
+-- Runs `fn` after `seconds` (C_Timer.After). false when the client has no timer, so the caller can run it at once.
+function Platform.After(seconds, fn)
+  return (Platform.Invoke("C_Timer.After", seconds, fn)) == "ok"
 end
 
 -- Hooks and events ----------------------------------------------------------------------------------------------
