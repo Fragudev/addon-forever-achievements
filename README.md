@@ -7,19 +7,22 @@
 <p align="center">
   <!-- Placeholder URL: confirm the slug once the CurseForge project is public. -->
   <a href="https://www.curseforge.com/wow/addons/forever-achievements"><b>Get it on CurseForge</b></a> ·
-  <a href="https://github.com/Fragudev/addon-forever-achievements/releases"><b>Download from Releases</b></a>
+  <a href="https://github.com/Fragudev/addon-forever-achievements/releases"><b>Download from Releases</b></a> ·
+  <a href="docs/USER_GUIDE.md"><b>User guide</b></a>
 </p>
 
 <p align="center">
   <a href="LICENSE"><img alt="Licence: proprietary" src="https://img.shields.io/badge/licence-proprietary-e6ba66?style=flat-square&labelColor=1c1a17"></a>
   <img alt="World of Warcraft: Forever, client 1.60.1" src="https://img.shields.io/badge/WoW-Forever_1.60.1-94c9ff?style=flat-square&labelColor=1c1a17">
-  <img alt="Status: in development" src="https://img.shields.io/badge/status-in_development-fabf4d?style=flat-square&labelColor=1c1a17">
+  <img alt="Status: beta" src="https://img.shields.io/badge/status-beta-fabf4d?style=flat-square&labelColor=1c1a17">
   <a href="https://www.curseforge.com/wow/addons/forever-achievements"><img alt="CurseForge: Forever Achievements" src="https://img.shields.io/badge/CurseForge-Forever_Achievements-f16436?style=flat-square&logo=curseforge&logoColor=white&labelColor=1c1a17"></a>
 </p>
 
 <p align="center">
   <a href="#quick-start">Quick start</a> ·
   <a href="#features">Features</a> ·
+  <a href="#slash-commands">Slash commands</a> ·
+  <a href="#documentation">Documentation</a> ·
   <a href="#building-from-source">Building from source</a> ·
   <a href="#credits-and-licence">Credits and licence</a>
 </p>
@@ -36,21 +39,71 @@
    The zip already contains the `ForeverAchievements` folder, so do not create it yourself.
 3. **Restart the game** and make sure **Forever Achievements** is enabled in the AddOns list. Log in: the chat says
    `Forever Achievements <version> loaded`.
-4. **Type `/fach`** to print the installed version and the list of commands.
+4. **Click the minimap button, or type `/fach`**, to open the window.
 
-### Slash commands
+Good to know:
+
+- **Updating:** delete the old `ForeverAchievements` folder, then unzip the new release the same way (the CurseForge
+  app does this for you). Your data is kept in `ForeverAchievementsDB`.
+- **Language:** the interface follows the client: Spanish on `esES` and `esMX`, English otherwise.
+- **Data:** everything stays on your computer; the addon sends no messages and makes no network calls. See
+  [Privacy and data](docs/PRIVACY.md).
+- **Something wrong?** Check the [user guide](docs/USER_GUIDE.md#what-the-addon-cannot-detect), then open an
+  [issue](https://github.com/Fragudev/addon-forever-achievements/issues) with what you did, what you expected and the
+  output of `/fach debug selftest`.
+
+> [!NOTE]
+> **Beta.** Everything below is implemented and covered by automated tests, but **nothing has been verified on the
+> game client yet**; the Forever launch is on 2026-11-05. See the issues labelled `verify-in-game` and
+> [docs/API_NOTES.md](docs/API_NOTES.md).
+
+## Features
+
+- **422 achievements** in nine categories: General (40), Quests (19), Exploration (44), Player vs. Player (40),
+  Dungeons and raids (100), Professions (52), Reputation (97), Feats of Strength (14) and Account (16).
+- **Retroactive grants:** at login the addon grants, silently, what your character already meets (level, money, time
+  played, quests, exploration, reputation, professions, collections, honorable kills, items). Boss kills,
+  battlegrounds, deaths, emotes and looted money are counted from the moment you install it.
+- **Window** with Summary, Achievements and Statistics, a category tree, search, filters and the criteria of each
+  achievement.
+- **Character and account views:** the account view sums all your characters and shows who earned each achievement.
+- **Statistics** per character: deaths, quests, bosses, honorable kills, battlegrounds, money looted and more.
+- **Toasts, chat lines and a sound** when you earn an achievement, each with its own switch.
+- **Tracker:** Shift-click an achievement to pin it; up to 10 are shown with their progress.
+- **Minimap button** to open the window.
+- **Private by design:** local only, no addon messages, no network.
+- **No combat log:** the Midnight restrictions block it, so the addon never uses it.
+
+The full walkthrough is the [user guide](docs/USER_GUIDE.md).
+
+## Slash commands
 
 | Command | What it does |
 |---|---|
-| `/fach` | Prints the version and the list of commands. |
+| `/fach` | Opens or closes the window. |
+| `/fach help` | Prints the version and the list of commands. |
+| `/fach track <id>` | Pins or unpins an achievement in the tracker. |
+| `/fach forget <name>` | Removes a known character (not the current one) and its achievements. |
+
+<details>
+<summary><b>Diagnostics for developers</b></summary>
+
+| Command | What it does |
+|---|---|
+| `/fach debug` | Lists the diagnostic commands. |
 | `/fach debug probe` | Checks every client API the addon may use and prints one `key=value` line each. |
 | `/fach debug probe events` | Prints the events captured since login: event, count, last arguments. |
 | `/fach debug selftest` | Lists the client APIs the addon relies on, each as OK or missing. |
 
-## Features
+</details>
 
-In development. The addon currently loads, creates its saved variables (`ForeverAchievementsDB`) and answers `/fach`.
-Achievement tracking and its window are not implemented yet.
+## Documentation
+
+| Document | For |
+|---|---|
+| [User guide](docs/USER_GUIDE.md) | players |
+| [Privacy and data](docs/PRIVACY.md) | what is stored, and what is not sent |
+| [Client API notes](docs/API_NOTES.md) | what the Forever client does and does not expose |
 
 ## Building from source
 
