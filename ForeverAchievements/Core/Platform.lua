@@ -1,0 +1,475 @@
+local _, ns = ...
+
+-- Single seam over the WoW client API. Everything else asks Platform, so specs can substitute a fake and API
+-- changes between Mainline and Forever stay in one file.
+--
+-- Every wrapper follows one contract: it gives nil (or an empty table where the comment says so) when the API is
+-- missing on this client, raises, or returns a secret value (Midnight restriction: a secret cannot be compared,
+-- stored or measured). The caller then treats the data as unavailable. Nothing here raises.
+local Platform = {}
+
+-- Stands in for a secret value in the packed results of Platform.Invoke. Wrappers turn it into nil.
+Platform.SECRET = setmetatable({}, {
+  __tostring = function()
+    return "<secret>"
+  end,
+})
+local SECRET = Platform.SECRET
+
+-- Events the addon must never register: the client blocks the whole addon for them ("blocked from an action only
+-- available to the Blizzard UI", measured in nrage).
+local FORBIDDEN_EVENTS = { COMBAT_LOG_EVENT_UNFILTERED = true }
+
+-- true when `value` is a secret value. Uses issecretvalue when the client has it; otherwise relies on the fact that a
+-- secret raises when it is compared or measured.
+function Platform.IsSecret(value)
+  if issecretvalue then
+    local ok, secret = pcall(issecretvalue, value)
+    if ok and secret then
+      return true
+    end
+  end
+  local kind = type(value)
+  if kind == "number" then
+    return not pcall(function()
+      return value >= 0
+    end)
+  elseif kind == "string" then
+    return not pcall(function()
+      return #value
+    end)
+  end
+  return false
+end
+
+-- The function at a dotted global path ("C_QuestLog.GetAllCompletedQuestIDs"), or nil when any step is missing.
+function Platform.Resolve(path)
+  local target = _G
+  for part in path:gmatch("[^.]+") do
+    if type(target) ~= "table" then
+      return nil
+    end
+    target = target[part]
+  end
+  if type(target) == "function" then
+    return target
+  end
+  return nil
+end
+
+-- true when the API at `path` exists on this client.
+function Platform.Has(path)
+  return Platform.Resolve(path) ~= nil
+end
+
+local function pack(...)
+  return { n = select("#", ...), ... }
+end
+
+local function safeText(value)
+  local ok, text = pcall(tostring, value)
+  if ok and type(text) == "string" then
+    return text
+  end
+  return "<secret>"
+end
+
+-- Calls the API at `path` through pcall. Gives "missing", "error" with the message, or "ok" with the packed results
+-- ({ n = count, ... }, each secret value replaced by Platform.SECRET).
+function Platform.Invoke(path, ...)
+  local fn = Platform.Resolve(path)
+  if not fn then
+    return "missing"
+  end
+  local packed = pack(pcall(fn, ...))
+  if not packed[1] then
+    return "error", safeText(packed[2])
+  end
+  local count = packed.n - 1
+  local results = { n = count }
+  for index = 1, count do
+    local value = packed[index + 1]
+    if Platform.IsSecret(value) then
+      value = SECRET
+    end
+    results[index] = value
+  end
+  return "ok", results
+end
+
+-- The packed results of a call, or nil when it is missing or raised.
+local function results(path, ...)
+  local status, packed = Platform.Invoke(path, ...)
+  if status == "ok" then
+    return packed
+  end
+  return nil
+end
+
+-- A value of the expected Lua type, or nil (a secret never matches).
+local function typedValue(value, kind)
+  if value ~= SECRET and type(value) == kind then
+    return value
+  end
+  return nil
+end
+
+-- The first result of the call when it has the expected type.
+local function first(kind, path, ...)
+  local packed = results(path, ...)
+  if not packed then
+    return nil
+  end
+  return typedValue(packed[1], kind)
+end
+
+-- The first results of the call, each one kept only when it has the expected type: kinds = { "string", "number" }.
+local function several(kinds, path, ...)
+  local packed = results(path, ...)
+  if not packed then
+    return nil
+  end
+  local values = {}
+  for index = 1, #kinds do
+    values[index] = typedValue(packed[index], kinds[index])
+  end
+  return unpack(values, 1, #kinds)
+end
+
+-- Unit and character -------------------------------------------------------------------------------------------
+
+function Platform.GetPlayerLevel()
+  return first("number", "UnitLevel", "player")
+end
+
+-- The identity of a character is its GUID: UnitName gives only the first word of a multi-word name on Forever.
+function Platform.GetPlayerGUID()
+  return first("string", "UnitGUID", "player")
+end
+
+-- First word of the name only (measured in nrage). Display use at most, never an identity.
+function Platform.GetPlayerName()
+  return first("string", "UnitName", "player")
+end
+
+function Platform.GetPlayerFullName()
+  return first("string", "GetUnitName", "player", true)
+end
+
+-- Localized class name, class token ("WARRIOR"), class id.
+function Platform.GetPlayerClass()
+  return several({ "string", "string", "number" }, "UnitClass", "player")
+end
+
+-- Localized race name, race token, race id.
+function Platform.GetPlayerRace()
+  return several({ "string", "string", "number" }, "UnitRace", "player")
+end
+
+-- Faction token ("Alliance" or "Horde"), localized faction name.
+function Platform.GetPlayerFaction()
+  return several({ "string", "string" }, "UnitFactionGroup", "player")
+end
+
+function Platform.GetRealmName()
+  return first("string", "GetNormalizedRealmName")
+end
+
+-- Money and time played ----------------------------------------------------------------------------------------
+
+-- Copper.
+function Platform.GetMoney()
+  return first("number", "GetMoney")
+end
+
+-- Asks for the time played; the answer arrives as TIME_PLAYED_MSG (total seconds, level seconds). The client also
+-- prints it in chat. true when the request was made.
+function Platform.RequestTimePlayed()
+  local status = Platform.Invoke("RequestTimePlayed")
+  return status == "ok"
+end
+
+-- Quests --------------------------------------------------------------------------------------------------------
+
+-- Array of completed quest ids, or an EMPTY table when the API is missing or fails (callers cannot tell "none" from
+-- "unavailable" here; use Platform.Has when that matters).
+function Platform.GetCompletedQuestIDs()
+  return first("table", "C_QuestLog.GetAllCompletedQuestIDs") or {}
+end
+
+-- true or false, nil when the client cannot say.
+function Platform.IsQuestCompleted(questId)
+  return first("boolean", "C_QuestLog.IsQuestFlaggedCompleted", questId)
+end
+
+-- Maps and exploration ------------------------------------------------------------------------------------------
+
+function Platform.GetBestMapForPlayer()
+  return first("number", "C_Map.GetBestMapForUnit", "player")
+end
+
+-- { name, mapType, parentMapID } or nil.
+function Platform.GetMapInfo(mapId)
+  local info = first("table", "C_Map.GetMapInfo", mapId)
+  if not info then
+    return nil
+  end
+  local name = typedValue(info.name, "string")
+  if not name then
+    return nil
+  end
+  return {
+    name = name,
+    mapType = typedValue(info.mapType, "number"),
+    parentMapID = typedValue(info.parentMapID, "number"),
+  }
+end
+
+-- Normalized x, y of the player on `mapId`, or nil.
+function Platform.GetPlayerMapPosition(mapId)
+  local position = first("table", "C_Map.GetPlayerMapPosition", mapId, "player")
+  if not position or type(position.GetXY) ~= "function" then
+    return nil
+  end
+  local ok, x, y = pcall(position.GetXY, position)
+  if ok and typedValue(x, "number") and typedValue(y, "number") then
+    return x, y
+  end
+  return nil
+end
+
+-- Array of explored area ids at a normalized position of a map, or nil.
+function Platform.GetExploredAreaIDsAtPosition(mapId, x, y)
+  if not CreateVector2D then
+    return nil
+  end
+  local ok, vector = pcall(CreateVector2D, x, y)
+  if not ok then
+    return nil
+  end
+  return first("table", "C_MapExplorationInfo.GetExploredAreaIDsAtPosition", mapId, vector)
+end
+
+-- Array of explored map texture records, or nil.
+function Platform.GetExploredMapTextures(mapId)
+  return first("table", "C_MapExplorationInfo.GetExploredMapTextures", mapId)
+end
+
+-- Reputation ----------------------------------------------------------------------------------------------------
+
+-- { name, factionID, standingID, barMin, barMax, barValue, source } or nil. Prefers C_Reputation.GetFactionDataByID
+-- and falls back to the older GetFactionInfoByID.
+function Platform.GetFactionData(factionId)
+  local data = first("table", "C_Reputation.GetFactionDataByID", factionId)
+  if data and typedValue(data.name, "string") then
+    return {
+      name = data.name,
+      factionID = typedValue(data.factionID, "number"),
+      standingID = typedValue(data.reaction, "number"),
+      barMin = typedValue(data.currentReactionThreshold, "number"),
+      barMax = typedValue(data.nextReactionThreshold, "number"),
+      barValue = typedValue(data.currentStanding, "number"),
+      source = "C_Reputation.GetFactionDataByID",
+    }
+  end
+  local name, _, standingId, barMin, barMax, barValue =
+    several({ "string", "string", "number", "number", "number", "number" }, "GetFactionInfoByID", factionId)
+  if name then
+    return {
+      name = name,
+      factionID = factionId,
+      standingID = standingId,
+      barMin = barMin,
+      barMax = barMax,
+      barValue = barValue,
+      source = "GetFactionInfoByID",
+    }
+  end
+  return nil
+end
+
+function Platform.GetNumFactions()
+  return first("number", "C_Reputation.GetNumFactions") or first("number", "GetNumFactions")
+end
+
+-- Professions ---------------------------------------------------------------------------------------------------
+
+-- Array of profession indexes (primary 1, primary 2, archaeology, fishing, cooking), without the empty slots.
+function Platform.GetProfessions()
+  local packed = results("GetProfessions")
+  local list = {}
+  if packed then
+    for index = 1, packed.n do
+      if typedValue(packed[index], "number") then
+        list[#list + 1] = packed[index]
+      end
+    end
+  end
+  return list
+end
+
+-- { name, rank, maxRank, skillLine } of a profession index, or nil.
+function Platform.GetProfessionInfo(index)
+  local name, _, rank, maxRank, _, _, skillLine =
+    several({ "string", "string", "number", "number", "number", "number", "number" }, "GetProfessionInfo", index)
+  if not name then
+    return nil
+  end
+  return { name = name, rank = rank, maxRank = maxRank, skillLine = skillLine }
+end
+
+-- Collections ---------------------------------------------------------------------------------------------------
+
+function Platform.GetNumMounts()
+  return first("number", "C_MountJournal.GetNumMounts")
+end
+
+-- Array of mount ids, or nil.
+function Platform.GetMountIDs()
+  return first("table", "C_MountJournal.GetMountIDs")
+end
+
+-- Total pets, owned pets.
+function Platform.GetNumPets()
+  return several({ "number", "number" }, "C_PetJournal.GetNumPets")
+end
+
+function Platform.GetNumLearnedToys()
+  return first("number", "C_ToyBox.GetNumLearnedDisplayedToys")
+end
+
+-- PvP -----------------------------------------------------------------------------------------------------------
+
+-- Lifetime honourable kills, then the next two values as the client gives them (not measured on Forever, issue #99).
+function Platform.GetPVPLifetimeStats()
+  return several({ "number", "number", "number" }, "GetPVPLifetimeStats")
+end
+
+-- Winning faction index of the finished battleground (0 Horde, 1 Alliance), or nil.
+function Platform.GetBattlefieldWinner()
+  return first("number", "GetBattlefieldWinner")
+end
+
+-- Items ---------------------------------------------------------------------------------------------------------
+
+function Platform.GetItemCount(item, includeBank)
+  return first("number", "GetItemCount", item, includeBank)
+end
+
+-- Item link of an equipped slot, or nil (empty slot, secret link, no API).
+function Platform.GetInventoryItemLink(slot)
+  return first("string", "GetInventoryItemLink", "player", slot)
+end
+
+function Platform.GetItemQuality(itemId)
+  return first("number", "C_Item.GetItemQualityByID", itemId)
+end
+
+-- Client state --------------------------------------------------------------------------------------------------
+
+function Platform.GetServerTime()
+  return first("number", "GetServerTime")
+end
+
+function Platform.GetLocale()
+  return first("string", "GetLocale")
+end
+
+-- inInstance (boolean), instanceType ("none", "party", "raid", "pvp", ...), or nil.
+function Platform.IsInInstance()
+  return several({ "boolean", "string" }, "IsInInstance")
+end
+
+-- true while the client blocks chat messaging (an encounter), false when it does not, nil when it cannot say.
+function Platform.IsChatMessagingLockedDown()
+  return first("boolean", "C_ChatInfo.InChatMessagingLockdown")
+end
+
+-- Native achievement system (the key risk in plan section 2) ------------------------------------------------------
+
+-- Array of category ids, EMPTY when the API is missing or fails.
+function Platform.GetAchievementCategories()
+  return first("table", "GetCategoryList") or {}
+end
+
+function Platform.GetTotalAchievementPoints()
+  return first("number", "GetTotalAchievementPoints")
+end
+
+-- Completed achievements, then the total the client knows.
+function Platform.GetNumCompletedAchievements()
+  local completed, total = several({ "number", "number" }, "GetNumCompletedAchievements")
+  return completed, total
+end
+
+-- Hooks and events ----------------------------------------------------------------------------------------------
+
+-- Hooks a global function without tainting it (hooksecurefunc). false when the client has no hooksecurefunc or the
+-- function to hook does not exist.
+function Platform.HookSecure(name, handler)
+  if not hooksecurefunc or not Platform.Has(name) then
+    return false
+  end
+  return pcall(hooksecurefunc, name, handler)
+end
+
+-- Registers `event` on `frame`; false when the client refuses it (an unknown event or a restricted one). The combat
+-- log event is never registered, whoever asks.
+function Platform.TryRegisterEvent(frame, event)
+  if FORBIDDEN_EVENTS[event] then
+    return false
+  end
+  local ok = pcall(frame.RegisterEvent, frame, event)
+  return ok
+end
+
+-- Registers every event of the list. Gives { registered = { names }, refused = { names } }, in list order.
+function Platform.RegisterEvents(frame, events)
+  local outcome = { registered = {}, refused = {} }
+  for _, event in ipairs(events) do
+    local bucket = Platform.TryRegisterEvent(frame, event) and outcome.registered or outcome.refused
+    bucket[#bucket + 1] = event
+  end
+  return outcome
+end
+
+-- Every client API the addon relies on. Each entry is a group of alternatives: the group is satisfied when any
+-- member exists. /fach debug selftest walks this list.
+Platform.REQUIRED_APIS = {
+  { "UnitLevel" },
+  { "UnitGUID" },
+  { "UnitName" },
+  { "GetUnitName" },
+  { "UnitClass" },
+  { "UnitRace" },
+  { "UnitFactionGroup" },
+  { "GetNormalizedRealmName" },
+  { "GetMoney" },
+  { "RequestTimePlayed" },
+  { "C_QuestLog.GetAllCompletedQuestIDs" },
+  { "C_QuestLog.IsQuestFlaggedCompleted" },
+  { "C_MapExplorationInfo.GetExploredAreaIDsAtPosition" },
+  { "C_MapExplorationInfo.GetExploredMapTextures" },
+  { "C_Map.GetBestMapForUnit" },
+  { "C_Map.GetMapInfo" },
+  { "C_Reputation.GetFactionDataByID", "GetFactionInfoByID" },
+  { "C_Reputation.GetNumFactions", "GetNumFactions" },
+  { "GetProfessions" },
+  { "GetProfessionInfo" },
+  { "C_MountJournal.GetNumMounts" },
+  { "C_MountJournal.GetMountIDs" },
+  { "C_PetJournal.GetNumPets" },
+  { "C_ToyBox.GetNumLearnedDisplayedToys" },
+  { "GetPVPLifetimeStats" },
+  { "GetBattlefieldWinner" },
+  { "GetItemCount" },
+  { "GetInventoryItemLink" },
+  { "C_Item.GetItemQualityByID" },
+  { "GetServerTime" },
+  { "GetLocale" },
+  { "IsInInstance" },
+  { "C_ChatInfo.InChatMessagingLockdown" },
+  { "hooksecurefunc" },
+}
+
+ns.Platform = Platform

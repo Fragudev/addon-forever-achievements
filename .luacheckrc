@@ -12,6 +12,11 @@ globals = {
 read_globals = {
   "C_AddOns",
   "CreateFrame",
+  "CreateVector2D",
+  "hooksecurefunc",
+  "issecretvalue",
+  -- Native achievement namespace, read by the probe.
+  "C_AchievementInfo",
 }
 
 files["tests/"] = {
