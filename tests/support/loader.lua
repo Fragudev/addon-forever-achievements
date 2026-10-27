@@ -31,6 +31,8 @@ Loader.DATA = {
   "Locales/Achievements/Quests_esES.lua",
   "Locales/Achievements/Exploration_enUS.lua",
   "Locales/Achievements/Exploration_esES.lua",
+  "Locales/Achievements/Reputation_enUS.lua",
+  "Locales/Achievements/Reputation_esES.lua",
   "Locales/Achievements/Account_enUS.lua",
   "Locales/Achievements/Account_esES.lua",
   "Data/Categories.lua",
@@ -45,6 +47,7 @@ Loader.DATA = {
   "Data/Achievements/General.lua",
   "Data/Achievements/Quests.lua",
   "Data/Achievements/Exploration.lua",
+  "Data/Achievements/Reputation.lua",
   "Data/Achievements/Account.lua",
 }
 
@@ -56,6 +59,8 @@ Loader.CATALOG_FILES = {
   "Locales/Achievements/Quests_esES.lua",
   "Locales/Achievements/Exploration_enUS.lua",
   "Locales/Achievements/Exploration_esES.lua",
+  "Locales/Achievements/Reputation_enUS.lua",
+  "Locales/Achievements/Reputation_esES.lua",
   "Locales/Achievements/Account_enUS.lua",
   "Locales/Achievements/Account_esES.lua",
   "Data/Reference/Encounters.lua",
@@ -68,6 +73,7 @@ Loader.CATALOG_FILES = {
   "Data/Achievements/General.lua",
   "Data/Achievements/Quests.lua",
   "Data/Achievements/Exploration.lua",
+  "Data/Achievements/Reputation.lua",
   "Data/Achievements/Account.lua",
 }
 
