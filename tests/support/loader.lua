@@ -15,6 +15,9 @@ Loader.CORE = {
 
 Loader.DOMAIN = {
   "Domain/Catalog.lua",
+  "Domain/CriteriaEngine.lua",
+  "Domain/AwardService.lua",
+  "Domain/AccountService.lua",
 }
 
 Loader.DATA = {

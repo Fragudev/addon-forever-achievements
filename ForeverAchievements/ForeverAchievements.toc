@@ -17,6 +17,9 @@ Locales\Achievements_esES.lua
 Core\EventBus.lua
 Core\Store.lua
 Domain\Catalog.lua
+Domain\CriteriaEngine.lua
+Domain\AwardService.lua
+Domain\AccountService.lua
 Data\Categories.lua
 Data\Achievements\General.lua
 Core\Init.lua
