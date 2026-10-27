@@ -1,0 +1,51 @@
+.luacheckrc
+  s_e75a0367a2662c::t_75c356d6e30e2f 21-27
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_bfd92cf9425e3f 33-43
+ForeverAchievements/Locales/UI_enUS.lua
+  s_e75a0367a2662c::t_73333188a0aec8 1-7
+ForeverAchievements/Locales/UI_esES.lua
+  s_e75a0367a2662c::t_0219b5a8ff7b2d 1-6
+ForeverAchievements/UI/Kit/Controls.lua
+  s_e75a0367a2662c::t_2f8b1e4cb24fbf 1-741
+ForeverAchievements/UI/Kit/Core.lua
+  s_e75a0367a2662c::t_4b40ab74e87f94 1-413
+ForeverAchievements/UI/Kit/Data.lua
+  s_e75a0367a2662c::t_ced79f88478a21 1-502
+ForeverAchievements/UI/Kit/Icons.lua
+  s_e75a0367a2662c::t_96c7181a1750ec 1-87
+ForeverAchievements/UI/Kit/Pixel.lua
+  s_e75a0367a2662c::t_53689d8fc50f23 1-91
+ForeverAchievements/UI/Kit/Shell.lua
+  s_e75a0367a2662c::t_94b20111c86c18 1-703
+ForeverAchievements/UI/Kit/Text.lua
+  s_e75a0367a2662c::t_78788c2fbd7fe9 1-442
+ForeverAchievements/UI/Kit/Theme.lua
+  s_e75a0367a2662c::t_5a99a225609cdb 1-228
+ForeverAchievements/UI/Kit/Util.lua
+  s_e75a0367a2662c::t_3419fc0ed1b529 1-215
+tests/kit_helpers_spec.lua
+  s_e75a0367a2662c::t_325067caffa398 1-275
+tests/kit_widgets_spec.lua
+  s_e75a0367a2662c::t_3dd392bb056756 1-794
+tests/support/fake_frames.lua
+  s_e75a0367a2662c::t_ad9b309d20a883 1-228
+tests/support/loader.lua
+  s_e75a0367a2662c::t_a5c1e4ab8f7c2b 35-37,49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "f6ad5bbc1d9c62d599b43c407801ddb24f51bd12",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
