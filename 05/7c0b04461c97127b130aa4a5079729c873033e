@@ -1,0 +1,21 @@
+tools/make_tga.swift
+  s_e75a0367a2662c::t_bcf755925856bb 1-63
+assets/README.md
+  s_e75a0367a2662c::t_708654284f82a1 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "057c0b04461c97127b130aa4a5079729c873033e",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
