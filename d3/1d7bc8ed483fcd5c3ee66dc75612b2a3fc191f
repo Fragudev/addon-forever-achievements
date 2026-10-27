@@ -1,0 +1,35 @@
+ForeverAchievements/Core/App.lua
+  s_e75a0367a2662c::t_2cb77f833bff56 41-43
+ForeverAchievements/Detectors/Battlegrounds.lua
+  s_e75a0367a2662c::t_c86446e64a2a92 1-77
+ForeverAchievements/Detectors/Deaths.lua
+  s_e75a0367a2662c::t_98c0e7acc6f3e4 1-10
+ForeverAchievements/Detectors/Encounters.lua
+  s_e75a0367a2662c::t_8f836b0b52c859 1-40
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_d7f165ef82c753 47-49
+tests/detector_battlegrounds_spec.lua
+  s_e75a0367a2662c::t_5f7f08d974a24a 1-160
+tests/detector_deaths_spec.lua
+  s_e75a0367a2662c::t_d1a048cfbbd448 1-30
+tests/detector_encounters_spec.lua
+  s_e75a0367a2662c::t_64628ad49853c1 1-102
+tests/support/detector_env.lua
+  s_e75a0367a2662c::t_95622bfd901821 18-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "d31d7bc8ed483fcd5c3ee66dc75612b2a3fc191f",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
