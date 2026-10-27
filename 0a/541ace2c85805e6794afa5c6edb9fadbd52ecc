@@ -1,0 +1,25 @@
+.luacheckrc
+  s_e75a0367a2662c::t_e19f73f4aa3d40 15-19
+ForeverAchievements/Core/Platform.lua
+  s_e75a0367a2662c::t_b55e0067987f4d 1-475
+tests/platform_spec.lua
+  s_e75a0367a2662c::t_767af63492066a 1-489
+tests/stubs/wow_api.lua
+  s_e75a0367a2662c::t_8de41021ce2a74 25-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "0a541ace2c85805e6794afa5c6edb9fadbd52ecc",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
