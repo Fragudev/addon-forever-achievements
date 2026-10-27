@@ -1,0 +1,31 @@
+ForeverAchievements/Data/Achievements/PvP.lua
+  s_e75a0367a2662c::t_54d95c315b233d 1-527
+ForeverAchievements/Data/Reference/Battlegrounds.lua
+  s_e75a0367a2662c::t_e1c6f4656fbb54 1-11
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_7bc62e2c7709f9 28-29,48,58
+ForeverAchievements/Locales/Achievements/PvP_enUS.lua
+  s_e75a0367a2662c::t_a20eb2d41f87f4 1-89
+ForeverAchievements/Locales/Achievements/PvP_esES.lua
+  s_e75a0367a2662c::t_753f4fd3199590 1-89
+tests/catalog_spec.lua
+  s_e75a0367a2662c::t_20f296fa4cf79f 113-114
+tests/support/loader.lua
+  s_e75a0367a2662c::t_070ddb5bf7706c 40-41,50,60,78-79,86,96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "a50d02d15f2efe51a724e10e18f07b1a1e2ad934",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
