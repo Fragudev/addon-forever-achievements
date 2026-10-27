@@ -1,0 +1,87 @@
+.luacheckrc
+  s_e75a0367a2662c::t_63f3f4800895e8 14
+ForeverAchievements/Core/EventBus.lua
+  s_e75a0367a2662c::t_4c2f97684c0183 1-79
+ForeverAchievements/Core/Locale.lua
+  s_e75a0367a2662c::t_4d848ff257e4c7 1-91
+ForeverAchievements/Core/Store.lua
+  s_e75a0367a2662c::t_761dde820a8276 1-186
+ForeverAchievements/Data/Achievements/General.lua
+  s_e75a0367a2662c::t_6f1e41e638a0c1 1-95
+ForeverAchievements/Data/Categories.lua
+  s_e75a0367a2662c::t_61f2ca862db779 1-77
+ForeverAchievements/Data/Statistics.lua
+  s_e75a0367a2662c::t_c0d6cfc5605b65 1-9
+ForeverAchievements/Domain/AccountService.lua
+  s_e75a0367a2662c::t_9be2bba3087578 1-90
+ForeverAchievements/Domain/AwardService.lua
+  s_e75a0367a2662c::t_11a1d10d30f9c7 1-97
+ForeverAchievements/Domain/Catalog.lua
+  s_e75a0367a2662c::t_29221a319c593f 1-324
+ForeverAchievements/Domain/CriteriaEngine.lua
+  s_e75a0367a2662c::t_4c43420cdfd01c 1-260
+ForeverAchievements/Domain/RetroScan.lua
+  s_e75a0367a2662c::t_e4fc96dbd01be0 1-80
+ForeverAchievements/Domain/Settings.lua
+  s_e75a0367a2662c::t_0d21c0d5e29e4a 1-68
+ForeverAchievements/Domain/StatisticsService.lua
+  s_e75a0367a2662c::t_db03615c579d30 1-84
+ForeverAchievements/Domain/TrackerService.lua
+  s_e75a0367a2662c::t_ab75828937d9da 1-67
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_cdfb0e4d7613ff 13-30
+ForeverAchievements/Locales/Achievements_enUS.lua
+  s_e75a0367a2662c::t_cfc2bf1a49f401 1-19
+ForeverAchievements/Locales/Achievements_esES.lua
+  s_e75a0367a2662c::t_7bd63049f7d63a 1-19
+ForeverAchievements/Locales/enUS.lua
+  s_e75a0367a2662c::t_06cf37bdef7236 1-44
+ForeverAchievements/Locales/esES.lua
+  s_e75a0367a2662c::t_54a679e96274b8 1-44
+tests/account_service_spec.lua
+  s_e75a0367a2662c::t_01d3a25907a36b 1-80
+tests/award_service_spec.lua
+  s_e75a0367a2662c::t_4c3194b0023535 1-147
+tests/catalog_spec.lua
+  s_e75a0367a2662c::t_d22837ef0ab33f 1-251
+tests/criteria_engine_spec.lua
+  s_e75a0367a2662c::t_9cbef58a266b7c 1-351
+tests/event_bus_spec.lua
+  s_e75a0367a2662c::t_7218dcdedd1748 1-87
+tests/fixtures/catalog.lua
+  s_e75a0367a2662c::t_2a3a06ff74955c 1-104
+tests/locale_parity_spec.lua
+  s_e75a0367a2662c::t_c54daa5692f5a2 1-34
+tests/locale_spec.lua
+  s_e75a0367a2662c::t_1a75ebb26d50d4 1-75
+tests/retro_scan_spec.lua
+  s_e75a0367a2662c::t_613876e47ee0f9 1-125
+tests/settings_spec.lua
+  s_e75a0367a2662c::t_6cfb4160e4c596 1-56
+tests/statistics_service_spec.lua
+  s_e75a0367a2662c::t_d08155a6938d99 1-75
+tests/store_spec.lua
+  s_e75a0367a2662c::t_0a9aafa4d375bc 1-170
+tests/support/harness.lua
+  s_e75a0367a2662c::t_95814dabeb77a4 1-57
+tests/support/loader.lua
+  s_e75a0367a2662c::t_a140340a9c843f 1-49
+tests/tracker_service_spec.lua
+  s_e75a0367a2662c::t_6bc12246ffd26e 1-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "a3fb1199b24d0a4f74c8665fdc30b2ea6fc1fc07",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "unknown"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
