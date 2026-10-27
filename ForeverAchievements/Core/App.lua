@@ -16,6 +16,7 @@ local _, ns = ...
 --   tracker    TrackerService
 --   settings   Settings
 --   guid       function returning the GUID of the current character (nil until the client gives it)
+--   queue      the encounter lockdown queue (Detector.Queue); detectors park their facts in it during an encounter
 -- and these extras: platform, detectors ({ [name] = detector }), detectorList (in start order), errors, and the
 -- methods Start, FeedRetro and Say.
 --
@@ -170,6 +171,7 @@ function App.Build(deps)
     settings = settings,
     guid = guid,
     platform = platform,
+    queue = ns.Detector.Queue.New({ engine = engine, platform = platform, catalog = catalog }),
     detectors = {},
     detectorList = {},
     errors = {},
@@ -217,6 +219,9 @@ function App:Start()
   for _, detector in ipairs(self.detectorList) do
     safe(self, "start:" .. detector.name, detector.Start, detector)
   end
+
+  -- After the detectors, so a fact produced by ENCOUNTER_END is queued before the queue's own handler looks at it.
+  safe(self, "queue", self.queue.Start, self.queue)
 
   local ok, count = safe(self, "retro", self.retro.Run, self.retro)
   granted = granted + (ok and count or 0)
