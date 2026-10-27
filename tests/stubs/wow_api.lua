@@ -23,9 +23,14 @@ end
 
 _G.SlashCmdList = {}
 
--- Hooks are recorded so specs can fire them. Specs add the other client APIs they exercise themselves.
-_G.hooksecurefunc = function(name, handler)
-  if type(_G[name]) ~= "function" then
+-- Hooks are recorded so specs can fire them: __hooks[name] = handler. hooksecurefunc(name, handler) hooks a global;
+-- hooksecurefunc(table, name, handler) hooks a function inside a table.
+_G.hooksecurefunc = function(first, second, third)
+  local name, handler, container = first, second, _G
+  if type(first) == "table" then
+    container, name, handler = first, second, third
+  end
+  if type(container[name]) ~= "function" then
     error("hooksecurefunc: no function " .. tostring(name))
   end
   _G.__hooks = _G.__hooks or {}
