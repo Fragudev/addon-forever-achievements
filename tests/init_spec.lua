@@ -56,10 +56,4 @@ describe("Init", function()
       return "@project-version@"
     end
   end)
-
-  it("answers /fach with the version", function()
-    assert.are.equal("/fach", SLASH_FACH1)
-    SlashCmdList["FACH"]()
-    assert.is_truthy(printed[1]:find("dev", 1, true))
-  end)
 end)

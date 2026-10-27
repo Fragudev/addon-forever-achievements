@@ -9,4 +9,7 @@
 # Interface number measured on the Forever beta client (build 16001) with /dump select(4, GetBuildInfo()).
 
 Core\Constants.lua
+Core\Platform.lua
+Core\Probe.lua
+Commands\Slash.lua
 Core\Init.lua

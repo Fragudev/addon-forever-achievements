@@ -20,11 +20,6 @@ local function Say(message)
   print(PREFIX .. " " .. message)
 end
 
-SLASH_FACH1 = "/fach"
-SlashCmdList["FACH"] = function()
-  Say(ns.GetVersion())
-end
-
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("PLAYER_LOGIN")

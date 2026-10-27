@@ -36,7 +36,16 @@
    The zip already contains the `ForeverAchievements` folder, so do not create it yourself.
 3. **Restart the game** and make sure **Forever Achievements** is enabled in the AddOns list. Log in: the chat says
    `Forever Achievements <version> loaded`.
-4. **Type `/fach`** to print the installed version.
+4. **Type `/fach`** to print the installed version and the list of commands.
+
+### Slash commands
+
+| Command | What it does |
+|---|---|
+| `/fach` | Prints the version and the list of commands. |
+| `/fach debug probe` | Checks every client API the addon may use and prints one `key=value` line each. |
+| `/fach debug probe events` | Prints the events captured since login: event, count, last arguments. |
+| `/fach debug selftest` | Lists the client APIs the addon relies on, each as OK or missing. |
 
 ## Features
 
