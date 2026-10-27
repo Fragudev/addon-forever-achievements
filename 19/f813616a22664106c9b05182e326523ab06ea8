@@ -1,0 +1,21 @@
+docs/PRIVACY.md
+  s_e75a0367a2662c::t_3afdff508a7381 1-59
+docs/USER_GUIDE.md
+  s_e75a0367a2662c::t_e153d02e3bf030 1-227
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "19f813616a22664106c9b05182e326523ab06ea8",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
