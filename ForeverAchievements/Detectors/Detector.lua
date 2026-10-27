@@ -76,8 +76,16 @@ Detector.SnapshotFields = function()
   return nil
 end
 
--- Feeds facts to the engine; returns how many achievements they awarded.
+-- Feeds facts to the engine; returns how many achievements they awarded. While an encounter locks the client down the
+-- facts wait in the app's queue (see Detector.Queue) and this returns 0.
 function Detector:Publish(facts)
+  local queue = self.app.queue
+  if queue and queue:Locked() then
+    for _, fact in ipairs(facts) do
+      queue:Add(fact)
+    end
+    return 0
+  end
   local awarded = 0
   for _, fact in ipairs(facts) do
     awarded = awarded + self.app.engine:Feed(fact)
@@ -169,5 +177,118 @@ function Detector:Start()
   end
   return registration
 end
+
+-- Encounter lockdown queue ---------------------------------------------------------------------------------------
+-- While a boss encounter runs (C_ChatInfo.InChatMessagingLockdown or IsEncounterInProgress) detectors do not feed the
+-- engine: a fact would evaluate achievements and show a toast in the middle of the fight, and the data behind it may
+-- be secret. Their facts wait here and are fed when the encounter ends (ENCOUNTER_END) or the player leaves combat
+-- (PLAYER_REGEN_ENABLED, only if the lockdown is over).
+--
+-- Facts of the same type and key are merged so the queue stays bounded by the number of distinct keys: "add" types
+-- sum their values, the others keep the highest.
+local Queue = {}
+Queue.__index = Queue
+
+Queue.EVENTS = { "ENCOUNTER_END", "PLAYER_REGEN_ENABLED" }
+
+-- deps: engine, platform, catalog.
+function Queue.New(deps)
+  return setmetatable({
+    engine = deps.engine,
+    platform = deps.platform,
+    catalog = deps.catalog,
+    facts = {},
+    index = {},
+  }, Queue)
+end
+
+-- true while the client reports a chat lockdown or an encounter in progress.
+function Queue:Locked()
+  local platform = self.platform
+  return platform.IsChatMessagingLockedDown() == true or platform.IsEncounterInProgress() == true
+end
+
+function Queue:Pending()
+  return #self.facts
+end
+
+-- Keeps one fact (a copy). Facts that are not tables with a numeric value are ignored.
+function Queue:Add(fact)
+  if type(fact) ~= "table" or type(fact.value) ~= "number" then
+    return false
+  end
+  local id = tostring(fact.type) .. ":" .. tostring(fact.key)
+  local kept = self.index[id]
+  if kept then
+    local def = self.catalog and self.catalog.CRITERIA_TYPES[fact.type]
+    if def and def.mode == "add" then
+      kept.value = kept.value + fact.value
+    else
+      kept.value = math.max(kept.value, fact.value)
+    end
+    return true
+  end
+  kept = {}
+  for field, value in pairs(fact) do
+    kept[field] = value
+  end
+  self.index[id] = kept
+  self.facts[#self.facts + 1] = kept
+  return true
+end
+
+-- Feeds the queued facts to the engine, oldest first, and empties the queue. Unless `force`, a queue behind a lockdown
+-- stays as it is. A fact that raises is skipped (kept in `lastError`). Returns how many achievements were awarded.
+function Queue:Flush(force)
+  if #self.facts == 0 or (not force and self:Locked()) then
+    return 0
+  end
+  local facts = self.facts
+  self.facts, self.index = {}, {}
+  local awarded = 0
+  for _, fact in ipairs(facts) do
+    local ok, count = pcall(self.engine.Feed, self.engine, fact)
+    if ok then
+      awarded = awarded + count
+    else
+      self.lastError = tostring(count)
+    end
+  end
+  return awarded
+end
+
+-- Reacts to the end of the encounter or of combat. The ENCOUNTER_END flush waits one throttle delay so that facts
+-- produced by the same event (the boss kill) are already queued; without a timer it runs at once.
+function Queue:Handle(event)
+  if event == "ENCOUNTER_END" then
+    local function flush()
+      self:Flush(true)
+    end
+    if not self.platform.After(Detector.THROTTLE_SECONDS, flush) then
+      flush()
+    end
+  else
+    self:Flush(false)
+  end
+end
+
+-- Registers the two events on a frame of its own. Safe to call twice. Returns the registration outcome.
+function Queue:Start()
+  if self.registration then
+    return self.registration
+  end
+  local frame = self.platform.NewFrame()
+  local registration = { registered = {}, refused = {} }
+  if frame and pcall(frame.SetScript, frame, "OnEvent", function(_, event)
+    self:Handle(event)
+  end) then
+    self.frame = frame
+    registration = self.platform.RegisterEvents(frame, Queue.EVENTS)
+  end
+  self.registration = registration
+  return registration
+end
+
+Detector.Queue = Queue
 
 ns.Detector = Detector

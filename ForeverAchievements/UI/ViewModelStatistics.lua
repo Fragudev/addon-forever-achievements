@@ -22,7 +22,7 @@ function Statistics.Build(app)
       id = definition.id,
       name = L[definition.name],
       value = item.value,
-      text = VM.Thousands(item.value),
+      text = definition.format == "money" and VM.Money(item.value) or VM.Thousands(item.value),
     }
   end
   return groups

@@ -435,6 +435,55 @@ function Platform.GetItemQuality(itemId)
   return first("number", "C_Item.GetItemQualityByID", itemId)
 end
 
+-- Quality (0 poor .. 4 epic) of the item equipped in an inventory slot, or nil for an empty slot, an unreadable link
+-- or no API. Reads the link first so an empty slot is told from an unreadable one; falls back to
+-- GetInventoryItemQuality when C_Item.GetItemQualityByID does not answer.
+function Platform.GetEquippedItemQuality(slot)
+  local link = Platform.GetInventoryItemLink(slot)
+  if not link then
+    return nil
+  end
+  return Platform.GetItemQuality(link) or first("number", "GetInventoryItemQuality", "player", slot)
+end
+
+-- Units and instances --------------------------------------------------------------------------------------------
+
+-- The GUID of any unit token ("target"), or nil.
+function Platform.GetUnitGUID(unit)
+  return first("string", "UnitGUID", unit)
+end
+
+-- { name, instanceType, difficultyID, instanceID } of the current instance (GetInstanceInfo: 1st, 2nd, 3rd and 8th
+-- results), or nil when the call is missing or answers nothing readable. instanceType is "none", "party", "raid",
+-- "pvp", "arena" ...; instanceID is the map id of the instance.
+function Platform.GetInstanceInfo()
+  local name, instanceType, difficultyID, _, _, _, _, instanceID =
+    several({ "string", "string", "number", "string", "number", "number", "boolean", "number" }, "GetInstanceInfo")
+  if not instanceType then
+    return nil
+  end
+  return { name = name, instanceType = instanceType, difficultyID = difficultyID, instanceID = instanceID }
+end
+
+-- true while a boss encounter is in progress, false when it is not, nil when the client cannot say.
+function Platform.IsEncounterInProgress()
+  return first("boolean", "IsEncounterInProgress")
+end
+
+-- Seconds since the client started, with millisecond precision (GetTime), or nil.
+function Platform.GetTime()
+  return first("number", "GetTime")
+end
+
+-- The global string `name` (a localized format such as GOLD_AMOUNT), or nil when it is missing, not a string or secret.
+function Platform.GetGlobalString(name)
+  local value = _G[name]
+  if value ~= nil and not Platform.IsSecret(value) and type(value) == "string" then
+    return value
+  end
+  return nil
+end
+
 -- Client state --------------------------------------------------------------------------------------------------
 
 function Platform.GetServerTime()
@@ -500,6 +549,19 @@ function Platform.HookSecure(name, handler)
   return pcall(hooksecurefunc, name, handler)
 end
 
+-- Hooks a function that lives in a table ("C_ChatInfo", "PerformEmote") without tainting it. false when the client has
+-- no hooksecurefunc, the table or the function is missing, or the hook is refused.
+function Platform.HookSecureMethod(tablePath, name, handler)
+  if not hooksecurefunc or not Platform.Has(tablePath .. "." .. name) then
+    return false
+  end
+  local target = _G
+  for part in tablePath:gmatch("[^.]+") do
+    target = target[part]
+  end
+  return pcall(hooksecurefunc, target, name, handler)
+end
+
 -- Registers `event` on `frame`; false when the client refuses it (an unknown event or a restricted one). The combat
 -- log event is never registered, whoever asks.
 function Platform.TryRegisterEvent(frame, event)
@@ -551,7 +613,11 @@ Platform.REQUIRED_APIS = {
   { "GetBattlefieldWinner" },
   { "GetItemCount" },
   { "GetInventoryItemLink" },
-  { "C_Item.GetItemQualityByID" },
+  { "C_Item.GetItemQualityByID", "GetInventoryItemQuality" },
+  { "GetInstanceInfo" },
+  { "IsEncounterInProgress" },
+  { "GetTime" },
+  { "DoEmote", "C_ChatInfo.PerformEmote" },
   { "GetServerTime" },
   { "GetLocale" },
   { "IsInInstance" },

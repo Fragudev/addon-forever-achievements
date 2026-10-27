@@ -164,3 +164,37 @@ Other assumptions:
 - `GetPVPLifetimeStats` first result is taken as the lifetime honourable kills; `pvp_rank` has no source and is not
   published.
 - The login Played request makes the client print the time played in chat once per session.
+
+## Event detectors (assumed, not measured)
+
+Phase 5 detectors follow the same rules as phase 3: client access only through `Core/Platform.lua`, silent degradation,
+nothing measured in game yet (check at the Forever launch, 2026-11-05). `COMBAT_LOG_EVENT_UNFILTERED` is not used; there
+is no kill counting beyond `ENCOUNTER_END`.
+
+| Detector | Fact (criterion type) | Source (assumed) | Events | What to check at launch |
+|---|---|---|---|---|
+| Encounters | `encounter` (key = encounterID, value 1; extra field `instanceType`) | `IsInInstance` for the instance type | `ENCOUNTER_END` (`encounterID, name, difficultyID, groupSize, success`), success == 1 | `success` is 1 on a kill; the ids Forever reports (the last 20 kills with their difficulty are logged in `ForeverAchievementsDB.debug.encounters`) |
+| Battlegrounds | `bg_played`, `bg_win` (key = instance map id, value 1) | 8th result of `GetInstanceInfo` while the instance type is `pvp`; `GetBattlefieldWinner` (0 Horde, 1 Alliance, nil while running); `UnitFactionGroup` | `PLAYER_ENTERING_WORLD`, `ZONE_CHANGED_NEW_AREA`, `UPDATE_BATTLEFIELD_STATUS` | map ids 489 (Warsong Gulch), 529 (Arathi Basin), 30 (Alterac Valley); the instance type is `pvp` (arenas are `arena`); the winner index; whether `UPDATE_BATTLEFIELD_STATUS` fires when the game ends |
+| Deaths | `death` (value 1) | none | `PLAYER_DEAD` | fires once per death |
+| Emotes | `emote_target` (key = `"<TOKEN>:<npcID>"`, value 1); statistic `emotes_used` for every emote | `hooksecurefunc("DoEmote")`, plus `C_ChatInfo.PerformEmote` when it exists; `UnitGUID("target")` parsed as `Creature-0-server-instance-zone-npcID-spawn` | none (hooks) | whether slash emotes reach `DoEmote`, `PerformEmote` or both (calls within 0.1 s with the same token count once); the token is the upper-case emote token (`LOVE`); the target GUID format |
+| Items | `item_obtained` (key = item id, value = count owned, referenced ids only), `equip_quality` (key = 2, 3 or 4, value = equipped slots with at least that quality) | `GetItemCount(id, true)`; `GetInventoryItemLink("player", slot)` + `C_Item.GetItemQualityByID(link)` (fallback `GetInventoryItemQuality`), slots 1..18 without 4 (shirt); 19 (tabard) is not read | `BAG_UPDATE_DELAYED`, `PLAYER_EQUIPMENT_CHANGED` (both coalesced 0.5 s) | `C_Item.GetItemQualityByID` accepts an item link; the slot numbering; `GetItemCount` includes the bank and reagent bank |
+| LootedMoney | `money_looted` (copper, no retro) | `CHAT_MSG_MONEY` text parsed with patterns built from the client globals `YOU_LOOT_MONEY`, `LOOT_MONEY_SPLIT`, `GOLD_AMOUNT`, `SILVER_AMOUNT`, `COPPER_AMOUNT` | `CHAT_MSG_MONEY` | the globals exist and the text is readable (not secret) in game; locales that use positional formats (`%1$s`) are not parsed |
+
+New `Platform` wrappers (same contract as the rest: nil or false when missing, raising or secret): `GetUnitGUID`,
+`GetInstanceInfo`, `IsEncounterInProgress`, `GetTime`, `GetGlobalString`, `GetEquippedItemQuality`,
+`HookSecureMethod`. `/fach debug selftest` lists `GetInstanceInfo`, `IsEncounterInProgress`, `GetTime`,
+`C_Item.GetItemQualityByID | GetInventoryItemQuality` and `DoEmote | C_ChatInfo.PerformEmote` (an alternative group is
+satisfied by any member, so the optional `PerformEmote` never produces a permanent warning). `C_ChatInfo.PerformEmote`
+and `GetInventoryItemQuality` are optional and are not listed alone.
+
+Encounter lockdown (plan section 6): while `C_ChatInfo.InChatMessagingLockdown()` or `IsEncounterInProgress()` is true,
+`Detector:Publish` parks the facts in `app.queue` (merged by type and key). The queue is fed to the engine on
+`ENCOUNTER_END` (after 0.5 s, whatever the client still reports, so the boss kill produced by the same event is
+included) and on `PLAYER_REGEN_ENABLED` (only once the lockdown is over). Toasts and evaluation therefore happen out of
+the fight. To check at launch: whether `IsEncounterInProgress` is still true inside the `ENCOUNTER_END` handler and
+whether `PLAYER_REGEN_ENABLED` fires after a wipe.
+
+Statistics (`Domain/StatisticsWiring.lua`): the engine publishes `fact.fed` for every valid fact and the wiring maps it
+to statistics (deaths, highest level, bosses, battlegrounds in total and per map, honorable kills, money looted, epic
+items equipped, mounts). `quests_completed` is still incremented by the Quests detector, and `emotes_used` by the
+Emotes detector (an emote without a creature target produces no fact).

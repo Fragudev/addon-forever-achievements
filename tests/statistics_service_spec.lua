@@ -15,14 +15,19 @@ describe("StatisticsService", function()
 
   it("loads the definitions from Data/Statistics.lua", function()
     local Statistics = h.ns.StatisticsService
-    assert.are.equal(3, #Statistics.Definitions())
+    assert.is_true(#Statistics.Definitions() >= 3)
+    assert.are.equal("deaths", Statistics.Definitions()[1].id)
     assert.are.equal("counter", Statistics.Definition("deaths").kind)
     assert.is_nil(Statistics.Definition("nope"))
   end)
 
   it("does not duplicate a definition registered twice", function()
+    local before = #h.ns.StatisticsService.Definitions()
     h.ns.StatisticsService.Register({ { id = "deaths", category = "c", name = "n", kind = "counter" } })
-    assert.are.equal(3, #h.ns.StatisticsService.Definitions())
+    assert.are.equal(before, #h.ns.StatisticsService.Definitions())
+    h.ns.StatisticsService.Register({
+      { id = "deaths", category = "stat.cat.general", name = "stat.deaths", kind = "counter" },
+    })
   end)
 
   it("increments a counter, default 1", function()
@@ -67,7 +72,7 @@ describe("StatisticsService", function()
   it("lists every definition with its value", function()
     stats:Increment("deaths", 2)
     local list = stats:List()
-    assert.are.equal(3, #list)
+    assert.are.equal(#h.ns.StatisticsService.Definitions(), #list)
     assert.are.equal("deaths", list[1].definition.id)
     assert.are.equal(2, list[1].value)
     assert.are.equal(0, list[2].value)

@@ -23,6 +23,7 @@ Domain\AwardService.lua
 Domain\AccountService.lua
 Domain\RetroScan.lua
 Domain\StatisticsService.lua
+Domain\StatisticsWiring.lua
 Domain\Settings.lua
 Domain\TrackerService.lua
 Data\Categories.lua
@@ -30,6 +31,8 @@ Data\Statistics.lua
 Data\Achievements\General.lua
 Locales\Detectors_enUS.lua
 Locales\Detectors_esES.lua
+Locales\Statistics_enUS.lua
+Locales\Statistics_esES.lua
 Detectors\Detector.lua
 Detectors\Level.lua
 Detectors\Money.lua
@@ -41,6 +44,12 @@ Detectors\Skills.lua
 Detectors\Collections.lua
 Detectors\PvP.lua
 Detectors\Snapshot.lua
+Detectors\Encounters.lua
+Detectors\Battlegrounds.lua
+Detectors\Deaths.lua
+Detectors\Emotes.lua
+Detectors\Items.lua
+Detectors\LootedMoney.lua
 Core\App.lua
 Core\Probe.lua
 Commands\Slash.lua

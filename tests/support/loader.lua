@@ -20,6 +20,7 @@ Loader.DOMAIN = {
   "Domain/AccountService.lua",
   "Domain/RetroScan.lua",
   "Domain/StatisticsService.lua",
+  "Domain/StatisticsWiring.lua",
   "Domain/Settings.lua",
   "Domain/TrackerService.lua",
 }
@@ -27,6 +28,8 @@ Loader.DOMAIN = {
 Loader.DATA = {
   "Locales/Achievements_enUS.lua",
   "Locales/Achievements_esES.lua",
+  "Locales/Statistics_enUS.lua",
+  "Locales/Statistics_esES.lua",
   "Data/Categories.lua",
   "Data/Statistics.lua",
   "Data/Achievements/General.lua",

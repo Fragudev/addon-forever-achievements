@@ -207,7 +207,8 @@ describe("App", function()
       level60Client()
       local app = build()
       app:Start()
-      assert.are.equal(10, #env.frames)
+      -- One frame per detector plus the one of the lockdown queue.
+      assert.are.equal(#app.detectorList + 1, #env.frames)
       assert.are.equal(60, env.h.store:FindCharacter("Player-1").level)
       local providers = {}
       for _, provider in ipairs(ns.RetroScan.Providers()) do
