@@ -106,4 +106,18 @@ describe("ViewModel", function()
     assert.is_nil(VM.Guid({}))
     assert.is_nil(VM.Guid(nil))
   end)
+
+  it("builds the sidebar card for the character and the account", function()
+    local card = VM.CharacterCard(h.app, "character")
+    assert.are.equal("Hero", card.name)
+    assert.are.equal("Level 1 WARRIOR", card.detail)
+    h.store:GetCharacter("Player-2", {})
+    assert.are.equal("2 characters", VM.CharacterCard(h.app, "account").detail)
+    h.guid = nil
+    assert.are.equal("No character", VM.CharacterCard(h.app, "character").name)
+    h.guid = "Player-2"
+    local bare = VM.CharacterCard(h.app, "character")
+    assert.are.equal("Unknown character", bare.name)
+    assert.are.equal("", bare.detail)
+  end)
 end)

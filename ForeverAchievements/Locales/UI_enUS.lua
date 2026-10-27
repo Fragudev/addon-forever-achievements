@@ -93,4 +93,10 @@ ns.Locale.Register("enUS", {
   ["crit.account_class_set"] = "Different classes",
   ["crit.account_money"] = "Gold across the account",
   ["crit.account_points"] = "Achievement points across the account",
+  ["ui.card.characters"] = "%d characters",
+  ["ui.card.level"] = "Level %d %s",
+  ["ui.no_character_name"] = "No character",
+  ["ui.settings_note"] = "Settings are saved for the whole account.",
+  ["ui.search_hint"] = "Search achievements (press Enter)",
+  ["ui.summary.recent_hint"] = "Shift-click an achievement in the list to track it.",
 })

@@ -174,4 +174,27 @@ function ViewModel.Guid(app)
   return type(guid) == "string" and guid ~= "" and guid or nil
 end
 
+-- The card at the bottom of the sidebar: { name, detail }. Account view: how many characters are known.
+function ViewModel.CharacterCard(app, mode)
+  local characters = app.store:Characters()
+  if mode == "account" then
+    local count = 0
+    for _ in pairs(characters) do
+      count = count + 1
+    end
+    return { name = L["ui.view.account"], detail = string.format(L["ui.card.characters"], count) }
+  end
+  local char = ViewModel.Guid(app) and characters[ViewModel.Guid(app)]
+  if not char then
+    return { name = L["ui.no_character_name"], detail = "" }
+  end
+  local classNames = _G.LOCALIZED_CLASS_NAMES_MALE
+  local class = char.class and ((classNames and classNames[char.class]) or char.class) or ""
+  local detail = class
+  if type(char.level) == "number" then
+    detail = string.format(L["ui.card.level"], char.level, class)
+  end
+  return { name = char.name or L["ui.unknown_character"], detail = detail }
+end
+
 ns.ViewModel = ViewModel

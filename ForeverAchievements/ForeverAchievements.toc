@@ -45,4 +45,12 @@ UI\ViewModel.lua
 UI\ViewModelAchievements.lua
 UI\ViewModelSummary.lua
 UI\ViewModelStatistics.lua
+UI\Tabs\Summary.lua
+UI\Tabs\Achievements.lua
+UI\Tabs\Statistics.lua
+UI\Main.lua
+UI\Toast.lua
+UI\Tracker.lua
+UI\MinimapButton.lua
+UI\UI.lua
 Core\Init.lua

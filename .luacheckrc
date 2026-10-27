@@ -26,6 +26,9 @@ read_globals = {
   "GameTooltip",
   "GetPhysicalScreenSize",
   "date",
+  "Minimap",
+  "GetCursorPosition",
+  "IsShiftKeyDown",
 }
 
 files["tests/"] = {

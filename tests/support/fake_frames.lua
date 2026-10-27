@@ -186,6 +186,11 @@ local NAMES = {
   "CreateFrame",
   "GetPhysicalScreenSize",
   "ForeverAchievementsModal",
+  "ForeverAchievementsWindow",
+  "ForeverAchievementsToast",
+  "ForeverAchievementsTracker",
+  "ForeverAchievementsMinimapButton",
+  "Minimap",
 }
 local saved
 

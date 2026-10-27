@@ -92,4 +92,10 @@ ns.Locale.Register("esES", {
   ["crit.account_class_set"] = "Clases distintas",
   ["crit.account_money"] = "Oro en toda la cuenta",
   ["crit.account_points"] = "Puntos de logro de toda la cuenta",
+  ["ui.card.characters"] = "%d personajes",
+  ["ui.card.level"] = "Nivel %d %s",
+  ["ui.no_character_name"] = "Sin personaje",
+  ["ui.settings_note"] = "Los ajustes se guardan para toda la cuenta.",
+  ["ui.search_hint"] = "Buscar logros (pulsa Intro)",
+  ["ui.summary.recent_hint"] = "Mayús + clic en un logro para seguirlo.",
 })
