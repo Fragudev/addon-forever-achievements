@@ -121,3 +121,46 @@ Registration is tried with `pcall`; "fires" is whether it was seen during the se
 Anything the probe shows as missing, secret or empty leaves the catalogue and is listed here (plan section 5.2).
 
 None yet: nothing has been measured.
+
+## Detectors (assumed, not measured)
+
+Phase 3 detectors read the client only through `Core/Platform.lua`. **Nothing here has been measured in game**: every
+source below follows the Mainline signature documented on warcraft.wiki.gg and must be checked at the Forever launch
+(2026-11-05). Each detector degrades silently: a missing API, an error or a secret value means no fact is published.
+`COMBAT_LOG_EVENT_UNFILTERED` is never registered. Noisy events (`UPDATE_FACTION`, `SKILL_LINES_CHANGED`,
+`MAP_EXPLORATION_UPDATED`, `NEW_*_ADDED`) are coalesced with `C_Timer.After` (0.5 s); money snapshot writes too.
+
+| Detector | Fact (criterion type) | Source (assumed) | Events | What to check at launch |
+|---|---|---|---|---|
+| Level | `level` | `UnitLevel` | `PLAYER_LEVEL_UP` (first argument is the new level) | the event argument is the new level |
+| Money | `money` | `GetMoney` (copper) | `PLAYER_MONEY` | unit is copper |
+| Played | `played` | `RequestTimePlayed`, then the event | `TIME_PLAYED_MSG` (total, level seconds) | the event fires once after the request; the chat print is **not** suppressed (hiding it means touching Blizzard chat frames) |
+| Quests | `quest_count`, `quest_id` (key = quest id) | `C_QuestLog.GetAllCompletedQuestIDs` | `QUEST_TURNED_IN` (first argument is the quest id) | the list is complete and returns ids; a turned-in id may or may not already be in the list |
+| Exploration | `explore_zone` (key = uiMapID, 0..100), `explore_area` (key = area id) | `C_MapExplorationInfo.GetExploredMapTextures`, `GetExploredAreaIDsAtPosition` | `MAP_EXPLORATION_UPDATED` | see below |
+| Reputation | `reputation` (key = faction id, bar value), `reputation_count` (Exalted) | `C_Reputation.GetFactionDataByID` (legacy `GetFactionInfoByID`); list via `C_Reputation.GetNumFactions` + `GetFactionDataByIndex` (legacy `GetFactionInfo`) | `UPDATE_FACTION` | bar value is cumulative; Exalted is standing id 8; the list only has visible rows |
+| Skills | `skill` (key = skill line, rank), `skill_count` (professions at max) | `GetProfessions`, `GetProfessionInfo` (7th result is the skill line) | `SKILL_LINES_CHANGED` | the skill line ids; Classic cap `Skills.MAX_RANK = 300` |
+| Collections | `mount_count`, `pet_count`, `toy_count` | mounts: `C_MountJournal.GetMountIDs` + 11th result (`isCollected`) of `GetMountInfoByID`; pets: second result of `C_PetJournal.GetNumPets`; toys: `C_ToyBox.GetNumLearnedDisplayedToys` | `NEW_MOUNT_ADDED`, `NEW_PET_ADDED`, `NEW_TOY_ADDED` | whether the journals exist at all on Forever; the toy count depends on the toy box filters |
+| PvP | `honor_kills` | first result of `GetPVPLifetimeStats` | `PLAYER_PVP_KILLS_CHANGED` | nrage issue #99: whether it answers |
+| Snapshot | none (stores `{ money, played, skills, reps }` and the character info) | `GetUnitName("player", false)` then `UnitName`; `UnitClass`, `UnitRace`, `UnitFactionGroup`, `UnitLevel` | `PLAYER_LOGOUT` | `GetUnitName("player", false)` gives the full multi-word name |
+
+Exploration (the weakest source):
+
+- Mainline gives the **explored** overlays of a map (`GetExploredMapTextures`) but not how many the map has. Each
+  returned record is counted as one overlay, and the percentage needs a reference total that the **catalog** gives in
+  the criterion: `{ type = "explore_zone", key = uiMapID, value = 100, total = <overlays of a fully explored map> }`.
+  The totals must be measured in game. A zone without `total` publishes nothing.
+- `explore_area` is only checked at the player's current position (`C_Map.GetBestMapForUnit` +
+  `C_Map.GetPlayerMapPosition` + `GetExploredAreaIDsAtPosition`) on login and on each exploration update. There is no
+  retroactive answer for areas the player is not standing in.
+- `zone_quests` is not published: it needs a quest-to-zone reference table (phase 6).
+
+Other assumptions:
+
+- `Platform.GetFactionByIndex`, `GetCollectedMountCount`, `ReadCompletedQuestIDs`, `After` (`C_Timer.After`) and
+  `NewFrame` are new wrappers with the same contract as the rest of `Platform` (nil or false when missing, raising
+  or secret).
+- The Exalted count is a lower bound: the faction list hides the rows under collapsed headers and the addon never
+  expands them (that would change the player's UI state). Referenced factions are read by id, so they always count.
+- `GetPVPLifetimeStats` first result is taken as the lifetime honourable kills; `pvp_rank` has no source and is not
+  published.
+- The login Played request makes the client print the time played in chat once per session.
