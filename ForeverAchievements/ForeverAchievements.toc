@@ -41,4 +41,8 @@ UI\Kit\Text.lua
 UI\Kit\Controls.lua
 UI\Kit\Data.lua
 UI\Kit\Shell.lua
+UI\ViewModel.lua
+UI\ViewModelAchievements.lua
+UI\ViewModelSummary.lua
+UI\ViewModelStatistics.lua
 Core\Init.lua

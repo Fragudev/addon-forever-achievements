@@ -25,6 +25,7 @@ read_globals = {
   "STANDARD_TEXT_FONT",
   "GameTooltip",
   "GetPhysicalScreenSize",
+  "date",
 }
 
 files["tests/"] = {
