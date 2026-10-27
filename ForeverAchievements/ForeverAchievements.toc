@@ -44,6 +44,9 @@ Detectors\Skills.lua
 Detectors\Collections.lua
 Detectors\PvP.lua
 Detectors\Snapshot.lua
+Detectors\Encounters.lua
+Detectors\Battlegrounds.lua
+Detectors\Deaths.lua
 Core\App.lua
 Core\Probe.lua
 Commands\Slash.lua

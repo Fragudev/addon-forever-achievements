@@ -15,6 +15,9 @@ local DETECTOR_FILES = {
   Skills = "Detectors/Skills.lua",
   Collections = "Detectors/Collections.lua",
   PvP = "Detectors/PvP.lua",
+  Encounters = "Detectors/Encounters.lua",
+  Battlegrounds = "Detectors/Battlegrounds.lua",
+  Deaths = "Detectors/Deaths.lua",
   Snapshot = "Detectors/Snapshot.lua",
 }
 

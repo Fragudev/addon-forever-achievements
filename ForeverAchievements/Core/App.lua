@@ -38,6 +38,9 @@ App.DETECTORS = {
   "Skills",
   "Collections",
   "PvP",
+  "Encounters",
+  "Battlegrounds",
+  "Deaths",
   "Snapshot",
 }
 
