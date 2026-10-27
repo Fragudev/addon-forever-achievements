@@ -1,0 +1,41 @@
+ForeverAchievements/Data/Statistics.lua
+  s_e75a0367a2662c::t_9abc4e0aa950e7 1-9
+ForeverAchievements/Domain/RetroScan.lua
+  s_e75a0367a2662c::t_c1d1ff91fa5c06 1-80
+ForeverAchievements/Domain/Settings.lua
+  s_e75a0367a2662c::t_0457cf0dc139da 1-68
+ForeverAchievements/Domain/StatisticsService.lua
+  s_e75a0367a2662c::t_eceb0ca0bc6cab 1-84
+ForeverAchievements/Domain/TrackerService.lua
+  s_e75a0367a2662c::t_59eb240cd5b99a 1-67
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_f39f33876e6a95 23-26,28
+tests/retro_scan_spec.lua
+  s_e75a0367a2662c::t_85cb3de028df64 1-125
+tests/settings_spec.lua
+  s_e75a0367a2662c::t_55a4666c6b5adb 1-56
+tests/statistics_service_spec.lua
+  s_e75a0367a2662c::t_4e013ffeff9d92 1-75
+tests/support/harness.lua
+  s_e75a0367a2662c::t_bd6049a6c04de1 8
+tests/support/loader.lua
+  s_e75a0367a2662c::t_a87ba932c0bce9 21-24,31
+tests/tracker_service_spec.lua
+  s_e75a0367a2662c::t_006d44f3ed76b6 1-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "99a7fef3d3de41bcfd22f7edff3dad6f573a2034",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
