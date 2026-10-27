@@ -13,9 +13,16 @@ Loader.CORE = {
   "Core/Store.lua",
 }
 
-Loader.DOMAIN = {}
+Loader.DOMAIN = {
+  "Domain/Catalog.lua",
+}
 
-Loader.DATA = {}
+Loader.DATA = {
+  "Locales/Achievements_enUS.lua",
+  "Locales/Achievements_esES.lua",
+  "Data/Categories.lua",
+  "Data/Achievements/General.lua",
+}
 
 function Loader.Load(...)
   local ns = {}

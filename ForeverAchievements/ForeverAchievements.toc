@@ -12,6 +12,11 @@ Core\Constants.lua
 Core\Locale.lua
 Locales\enUS.lua
 Locales\esES.lua
+Locales\Achievements_enUS.lua
+Locales\Achievements_esES.lua
 Core\EventBus.lua
 Core\Store.lua
+Domain\Catalog.lua
+Data\Categories.lua
+Data\Achievements\General.lua
 Core\Init.lua
