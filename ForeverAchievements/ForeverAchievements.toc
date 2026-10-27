@@ -1,0 +1,12 @@
+## Interface: 16001
+## Title: Forever Achievements
+## Notes: Character and account achievements for World of Warcraft: Forever.
+## Author: Fragudev
+## Version: @project-version@
+## SavedVariables: ForeverAchievementsDB
+## IconTexture: Interface\AddOns\ForeverAchievements\Media\forever_achievements_logo
+
+# Interface number measured on the Forever beta client (build 16001) with /dump select(4, GetBuildInfo()).
+
+Core\Constants.lua
+Core\Init.lua
