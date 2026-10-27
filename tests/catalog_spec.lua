@@ -136,6 +136,17 @@ describe("Catalog", function()
       end
     end)
 
+    it("has the full catalog and no empty category", function()
+      assert.is_true(Catalog.Count() >= 400)
+      local function walk(nodes)
+        for _, node in ipairs(nodes) do
+          assert.is_true(#Catalog.ByCategory(node.id, true) > 0, "category " .. node.id .. " is empty")
+          walk(node.children)
+        end
+      end
+      walk(Catalog.Categories())
+    end)
+
     it("does not use criterion types without a reliable source", function()
       for _, banned in ipairs({ "zone_quests", "explore_area", "pvp_rank" }) do
         assert.are.equal(0, #Catalog.ByType(banned), banned)

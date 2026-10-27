@@ -25,6 +25,17 @@ describe("Locale parity", function()
     assert.is_true(count > 50)
   end)
 
+  it("translates the name and description of every catalog achievement", function()
+    local en, es = ns.Locale.Get("enUS"), ns.Locale.Get("esES")
+    for _, ach in ipairs(ns.Catalog.All()) do
+      for _, key in ipairs({ ns.Catalog.NameKey(ach.id), ns.Catalog.DescKey(ach.id) }) do
+        assert.is_true(type(en[key]) == "string" and en[key] ~= "", "enUS is missing " .. key)
+        assert.is_true(type(es[key]) == "string" and es[key] ~= "", "esES is missing " .. key)
+      end
+    end
+    assert.is_true(ns.Catalog.Count() >= 400)
+  end)
+
   it("has no esES key without an enUS one", function()
     local en = ns.Locale.Get("enUS")
     for key in pairs(ns.Locale.Get("esES")) do
