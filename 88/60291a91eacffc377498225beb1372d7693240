@@ -1,0 +1,47 @@
+ForeverAchievements/Core/App.lua
+  s_e75a0367a2662c::t_bebdb957a94f36 158-160
+ForeverAchievements/Core/EventBus.lua
+  s_e75a0367a2662c::t_f34777afb5fa06 6
+ForeverAchievements/Data/Statistics.lua
+  s_e75a0367a2662c::t_cf408bc56678cb 4-13,17-43
+ForeverAchievements/Detectors/Level.lua
+  s_e75a0367a2662c::t_e2345fb1e4ada2 4-5
+ForeverAchievements/Domain/CriteriaEngine.lua
+  s_e75a0367a2662c::t_63a84c144ea917 183-186
+ForeverAchievements/Domain/StatisticsWiring.lua
+  s_e75a0367a2662c::t_da8135fc07c64f 1-84
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_10e60d58162787 26,34-35
+ForeverAchievements/Locales/Statistics_enUS.lua
+  s_e75a0367a2662c::t_35f5890c31b556 1-25
+ForeverAchievements/Locales/Statistics_esES.lua
+  s_e75a0367a2662c::t_09755dced2bff9 1-25
+ForeverAchievements/UI/ViewModelStatistics.lua
+  s_e75a0367a2662c::t_73a2430411f66a 25
+tests/statistics_service_spec.lua
+  s_e75a0367a2662c::t_eca0edf46018ef 18-19,25,27-30,75
+tests/statistics_wiring_spec.lua
+  s_e75a0367a2662c::t_0c29db1dccc40e 1-153
+tests/support/harness.lua
+  s_e75a0367a2662c::t_ca1ca6794e1c91 8-13
+tests/support/loader.lua
+  s_e75a0367a2662c::t_0d6133a4a16698 23,31-32
+tests/view_model_statistics_spec.lua
+  s_e75a0367a2662c::t_cdf826fdef1c7d 12-27,32-53,61,67,71-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "8860291a91eacffc377498225beb1372d7693240",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
