@@ -30,4 +30,15 @@ Data\Statistics.lua
 Data\Achievements\General.lua
 Core\Probe.lua
 Commands\Slash.lua
+Locales\UI_enUS.lua
+Locales\UI_esES.lua
+UI\Kit\Theme.lua
+UI\Kit\Pixel.lua
+UI\Kit\Util.lua
+UI\Kit\Icons.lua
+UI\Kit\Core.lua
+UI\Kit\Text.lua
+UI\Kit\Controls.lua
+UI\Kit\Data.lua
+UI\Kit\Shell.lua
 Core\Init.lua
