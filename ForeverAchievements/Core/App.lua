@@ -155,6 +155,9 @@ function App.Build(deps)
     providers = deps.providers,
   })
   local stats = ns.StatisticsService.New({ store = store, guid = guid })
+  if ns.StatisticsWiring then
+    ns.StatisticsWiring.Attach(bus, stats)
+  end
   local settings = ns.Settings.New(store)
   local tracker = ns.TrackerService.New({ settings = settings, catalog = catalog })
 

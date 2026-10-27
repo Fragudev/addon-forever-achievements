@@ -3,6 +3,7 @@ local _, ns = ...
 -- Internal publish/subscribe. A handler that raises never stops the others: the error is kept for diagnostics
 -- (EventBus:Errors) and the next handler runs. Events used so far:
 --   achievement.earned  { id, scope, guid, at, retro, points, feat, achievement }
+--   fact.fed            (fact, guid)   every valid fact the engine receives, before it is evaluated
 --   progress.changed    { type, key, value, guid }
 --   retro.completed     { count, errors }
 local EventBus = {}

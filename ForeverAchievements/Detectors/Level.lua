@@ -1,7 +1,8 @@
 local _, ns = ...
 
 -- Character level. Facts: level. Source (assumed, not measured): UnitLevel and PLAYER_LEVEL_UP, whose first
--- argument is the new level (UnitLevel can still give the old one while the event fires).
+-- argument is the new level (UnitLevel can still give the old one while the event fires). The highest_level
+-- statistic follows the level fact (Domain/StatisticsWiring.lua).
 local Detector = ns.Detector
 local Level = Detector.Class("Level", { events = { "PLAYER_LEVEL_UP" }, retroType = "level" })
 
@@ -19,8 +20,5 @@ function Level:Handle(_, newLevel)
     return
   end
   self:Publish({ { type = "level", value = level } })
-  if self.app.stats then
-    self.app.stats:SetMax("highest_level", level)
-  end
   self:UpdateSnapshot({}, { level = level })
 end

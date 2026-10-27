@@ -180,6 +180,10 @@ function Engine:Feed(fact)
   if not def or def.derived or type(fact.value) ~= "number" or not guid then
     return 0
   end
+  -- Statistics (and anything else that counts occurrences) listen here: the fact itself, before it is evaluated.
+  if self.bus then
+    self.bus:Publish("fact.fed", fact, guid)
+  end
   local progress = self.store:Progress(guid)
   local key = Engine.ProgressKey(fact)
   local old = progress[key] or 0

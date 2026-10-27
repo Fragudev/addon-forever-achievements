@@ -5,7 +5,12 @@ local fixture = dofile("tests/fixtures/catalog.lua")
 local Harness = {}
 
 function Harness.Build()
-  local ns = Loader.Load(Loader.CORE, Loader.DOMAIN, { "Data/Categories.lua", "Data/Statistics.lua" })
+  local ns = Loader.Load(Loader.CORE, Loader.DOMAIN, {
+    "Locales/Statistics_enUS.lua",
+    "Locales/Statistics_esES.lua",
+    "Data/Categories.lua",
+    "Data/Statistics.lua",
+  })
   fixture.Install(ns)
 
   local h = { ns = ns, time = 1000, guid = "Player-1", events = {} }
