@@ -1,0 +1,27 @@
+ForeverAchievements/Data/Achievements/Exploration.lua
+  s_e75a0367a2662c::t_86aef8fc0d4758 1-582
+ForeverAchievements/ForeverAchievements.toc
+  s_e75a0367a2662c::t_0f4025841e1877 20-21,45
+ForeverAchievements/Locales/Achievements/Exploration_enUS.lua
+  s_e75a0367a2662c::t_1d96f13650f0ce 1-99
+ForeverAchievements/Locales/Achievements/Exploration_esES.lua
+  s_e75a0367a2662c::t_623c38d747a0df 1-122
+tests/support/loader.lua
+  s_e75a0367a2662c::t_0e1d87ffcd43a1 32-33,47,57-58,70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "7d8bc130d75f234347ef7cffa00bc9ef62565028",
+  "prompts": {},
+  "sessions": {
+    "s_e75a0367a2662c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1ceee701-74bc-4c1c-8b53-e59d4bd32064",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Francis Gutiérrez <francisge@ext.inditex.com>"
+    }
+  }
+}
