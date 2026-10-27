@@ -10,6 +10,24 @@
 
 Core\Constants.lua
 Core\Platform.lua
+Core\Locale.lua
+Locales\enUS.lua
+Locales\esES.lua
+Locales\Achievements_enUS.lua
+Locales\Achievements_esES.lua
+Core\EventBus.lua
+Core\Store.lua
+Domain\Catalog.lua
+Domain\CriteriaEngine.lua
+Domain\AwardService.lua
+Domain\AccountService.lua
+Domain\RetroScan.lua
+Domain\StatisticsService.lua
+Domain\Settings.lua
+Domain\TrackerService.lua
+Data\Categories.lua
+Data\Statistics.lua
+Data\Achievements\General.lua
 Core\Probe.lua
 Commands\Slash.lua
 Core\Init.lua
