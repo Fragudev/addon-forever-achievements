@@ -24,6 +24,8 @@
   <a href="#slash-commands">Slash commands</a> ·
   <a href="#documentation">Documentation</a> ·
   <a href="#building-from-source">Building from source</a> ·
+  <a href="#contributing">Contributing</a> ·
+  <a href="#releasing">Releasing</a> ·
   <a href="#credits-and-licence">Credits and licence</a>
 </p>
 
@@ -54,8 +56,7 @@ Good to know:
 
 > [!NOTE]
 > **Beta.** Everything below is implemented and covered by automated tests, but **nothing has been verified on the
-> game client yet**; the Forever launch is on 2026-11-05. See the issues labelled `verify-in-game` and
-> [docs/API_NOTES.md](docs/API_NOTES.md).
+> game client yet**. See [docs/API_NOTES.md](docs/API_NOTES.md) for what is still assumed.
 
 ## Features
 
@@ -120,6 +121,30 @@ tools/package.sh dev
 Every pull request runs lint, the tests with a minimum of 80% line coverage, a StyLua format check and a package
 build that verifies every file referenced by the TOC and the icon is in the zip. Pull request titles must follow
 [Conventional Commits](https://www.conventionalcommits.org/). Dependabot keeps the workflow actions up to date.
+
+## Contributing
+
+Bug reports and ideas are welcome as [issues](https://github.com/Fragudev/addon-forever-achievements/issues). Pull
+requests are open to maintainers only. Day-to-day work lands on `develop`, directly or through short-lived branches,
+and `main` only takes pull requests from `develop` approved by the owner.
+
+## Releasing
+
+Betas ship from `develop` and releases from `main`; only the owner can push version tags. Write the notes in
+`release-notes/<tag>.md`, then push the tag. The **Release** workflow checks that the tag is on the right branch, runs
+the full CI and, only if both pass, stamps the version into the TOC, zips `ForeverAchievements/`, publishes a GitHub
+release and uploads the zip to CurseForge.
+
+```bash
+# Beta: tag develop
+git switch develop && git pull && git tag v1.2.0-beta.1 && git push origin v1.2.0-beta.1
+# Release: merge develop into main through a pull request, then tag main
+git switch main && git pull && git tag v1.2.0 && git push origin v1.2.0
+```
+
+Tags containing a hyphen are published as betas (a GitHub pre-release and a CurseForge beta), the rest as releases.
+After a release, merge `main` back into `develop`. Only `ForeverAchievements/` is shipped. If the CurseForge upload
+fails, run the **Release** workflow by hand with the existing tag to publish it again.
 
 ## Credits and licence
 
